@@ -11,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".activity.ParentChoreDetailActivity"></activity>
+        <activity
+            android:name=".activity.ChildMainActivity"
+            android:label="@string/title_activity_child_main" />
+        <activity
+            android:name=".activity.ParentMainActivity"
+            android:label="@string/title_activity_parent_main" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
