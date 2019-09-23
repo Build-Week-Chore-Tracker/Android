@@ -8,8 +8,23 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.activity.ui_child.dashboard.ChildPointsFragment
+import com.lambdaschool.choretracker.activity.ui_child.home.ChildChoresFragment
+import com.lambdaschool.choretracker.activity.ui_child.notifications.ChildTradeFragment
 
-class ChildMainActivity : AppCompatActivity() {
+class ChildMainActivity : AppCompatActivity(),
+    ChildPointsFragment.OnChildPointsFragmentInteractionListener,
+    ChildChoresFragment.OnChildChoresFragmentInteractionListener,
+    ChildTradeFragment.OnChildTradeFragmentInteractionListener {
+
+    override fun onChildTradeFragmentInteractionListener() {
+    }
+
+    override fun onChildChoresFragmentInteractionListener() {
+    }
+
+    override fun onChildPointsFragmentInteractionListener() {
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
