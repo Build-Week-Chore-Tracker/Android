@@ -16,4 +16,11 @@
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 
+    <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
 </resources>
