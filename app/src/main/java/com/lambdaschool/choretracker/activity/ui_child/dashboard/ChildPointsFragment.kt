@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 
-class PointsFragment : Fragment() {
+class ChildPointsFragment : Fragment() {
 
-    private lateinit var pointsViewModel: PointsViewModel
-    private var listener: OnPointsFragmentInteractionListener? = null
+    private lateinit var childPointsViewModel: ChildPointsViewModel
+    private var listenerChild: OnChildPointsFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        pointsViewModel =
-            ViewModelProviders.of(this).get(PointsViewModel::class.java)
+        childPointsViewModel =
+            ViewModelProviders.of(this).get(ChildPointsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_points_child, container, false)
         /*val textView: TextView = root.findViewById(R.id.tv_child_dashboard)
-        pointsViewModel.text.observe(this, Observer {
+        childPointsViewModel.text.observe(this, Observer {
             textView.text = it
         })*/
         return root
@@ -36,19 +36,19 @@ class PointsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnPointsFragmentInteractionListener) {
-            listener = context
+        if (context is OnChildPointsFragmentInteractionListener) {
+            listenerChild = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnPointsFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnChildPointsFragmentInteractionListener")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        listenerChild = null
     }
 
-    interface OnPointsFragmentInteractionListener {
-        fun onPointsFragmentInteractionListener()
+    interface OnChildPointsFragmentInteractionListener {
+        fun onChildPointsFragmentInteractionListener()
     }
 }

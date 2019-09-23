@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 
-class TradeFragment : Fragment() {
+class ChildTradeFragment : Fragment() {
 
-    private lateinit var tradeViewModel: TradeViewModel
-    private var listener: OnTradeFragmentInteractionListener? = null
+    private lateinit var childTradeViewModel: ChildTradeViewModel
+    private var listenerChild: OnChildTradeFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tradeViewModel =
-            ViewModelProviders.of(this).get(TradeViewModel::class.java)
+        childTradeViewModel =
+            ViewModelProviders.of(this).get(ChildTradeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_trade_child, container, false)
         /*val textView: TextView = root.findViewById(R.id.tv_child_notifications)
-        tradeViewModel.text.observe(this, Observer {
+        childTradeViewModel.text.observe(this, Observer {
             textView.text = it
         })*/
         return root
@@ -36,19 +36,19 @@ class TradeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnTradeFragmentInteractionListener) {
-            listener = context
+        if (context is OnChildTradeFragmentInteractionListener) {
+            listenerChild = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnChoresFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnChildTradeFragmentInteractionListener")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        listenerChild = null
     }
 
-    interface OnTradeFragmentInteractionListener {
-        fun onTradeFragmentInteractionListener()
+    interface OnChildTradeFragmentInteractionListener {
+        fun onChildTradeFragmentInteractionListener()
     }
 }

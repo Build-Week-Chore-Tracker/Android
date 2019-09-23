@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 
-class ChoresFragment : Fragment() {
+class ChildChoresFragment : Fragment() {
 
-    private lateinit var choresViewModel: ChoresViewModel
-    private var listener: OnChoresFragmentInteractionListener? = null
+    private lateinit var childChoresViewModel: ChildChoresViewModel
+    private var listenerChild: OnChildChoresFragmentInteractionListener? = null
 
 
     override fun onCreateView(
@@ -20,11 +20,11 @@ class ChoresFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        choresViewModel =
-            ViewModelProviders.of(this).get(ChoresViewModel::class.java)
+        childChoresViewModel =
+            ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_chores_child, container, false)
         /*val textView: TextView = root.findViewById(R.id.tv_child_home)
-        choresViewModel.text.observe(this, Observer {
+        childChoresViewModel.text.observe(this, Observer {
             textView.text = it
         })*/
         return root
@@ -37,19 +37,19 @@ class ChoresFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnChoresFragmentInteractionListener) {
-            listener = context
+        if (context is OnChildChoresFragmentInteractionListener) {
+            listenerChild = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnChoresFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnChildChoresFragmentInteractionListener")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        listenerChild = null
     }
 
-    interface OnChoresFragmentInteractionListener {
-        fun onChoresFragmentInteractionListener()
+    interface OnChildChoresFragmentInteractionListener {
+        fun onChildChoresFragmentInteractionListener()
     }
 }
