@@ -1,10 +1,8 @@
-package com.lambdaschool.choretracker.activity.ui_parent.dashboard
+package com.lambdaschool.choretracker.activity.ui_parent.children
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class ChildrenViewModel : ViewModel() {
 
     /*private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

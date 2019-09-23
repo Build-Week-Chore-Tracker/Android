@@ -1,7 +1,5 @@
-package com.lambdaschool.choretracker.activity.ui_parent.notifications
+package com.lambdaschool.choretracker.activity.ui_parent.store
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class NotificationsViewModel : ViewModel() {

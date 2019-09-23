@@ -1,7 +1,5 @@
-package com.lambdaschool.choretracker.activity.ui_parent.home
+package com.lambdaschool.choretracker.activity.ui_parent.chores
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
