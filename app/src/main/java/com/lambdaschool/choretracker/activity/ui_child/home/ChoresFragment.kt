@@ -1,5 +1,6 @@
 package com.lambdaschool.choretracker.activity.ui_child.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.lambdaschool.choretracker.R
 class ChoresFragment : Fragment() {
 
     private lateinit var choresViewModel: ChoresViewModel
+    private var listener: OnChoresFragmentInteractionListener? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +28,28 @@ class ChoresFragment : Fragment() {
             textView.text = it
         })*/
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnChoresFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnChoresFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnChoresFragmentInteractionListener {
+        fun onChoresFragmentInteractionListener()
     }
 }

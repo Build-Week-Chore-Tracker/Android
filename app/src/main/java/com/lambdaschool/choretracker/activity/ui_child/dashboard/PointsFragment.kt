@@ -1,5 +1,6 @@
 package com.lambdaschool.choretracker.activity.ui_child.dashboard
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.lambdaschool.choretracker.R
 class PointsFragment : Fragment() {
 
     private lateinit var pointsViewModel: PointsViewModel
+    private var listener: OnPointsFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +27,28 @@ class PointsFragment : Fragment() {
             textView.text = it
         })*/
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnPointsFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnPointsFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnPointsFragmentInteractionListener {
+        fun onPointsFragmentInteractionListener()
     }
 }
