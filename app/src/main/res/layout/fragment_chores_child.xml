@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="CHILD NOTIFICATIONS"
-        android:id="@+id/tv_child_notifications"
+        android:text="CHILD CHORES"
+        android:id="@+id/tv_child_chores"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="CHILD DASHBOARD"
-        android:id="@+id/tv_child_dashboard"
+        android:text="CHILD POINTS"
+        android:id="@+id/tv_child_points"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
