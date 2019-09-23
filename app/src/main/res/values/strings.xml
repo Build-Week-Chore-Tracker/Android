@@ -8,4 +8,6 @@
     <string name="title_points">Points</string>
     <string name="title_trade">Trade</string>
     <string name="title_activity_child_main">ChildMainActivity</string>
+    <string name="title_children">Children</string>
+    <string name="title_store">Store</string>
 </resources>
