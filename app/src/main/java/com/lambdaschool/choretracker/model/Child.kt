@@ -8,7 +8,7 @@ object ChildList {
     val childList = mutableListOf<Child>()
 }
 
-@Entity
+@Entity (tableName = "child_table")
 class Child (
     val name: String,
     val labelColorHex: String, // "#FFFFFF"

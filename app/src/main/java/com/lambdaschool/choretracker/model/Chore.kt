@@ -1,5 +1,6 @@
 package com.lambdaschool.choretracker.model
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -8,7 +9,7 @@ object ChoreList {
     val choreList = mutableListOf<Chore>()
 }
 
-@Entity
+@Entity (tableName = "chore_table")
 class Chore (
     val title: String,
     val description: String,

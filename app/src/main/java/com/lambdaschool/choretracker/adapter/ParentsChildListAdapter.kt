@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.model.Child
 
 class ParentsChildListAdapter(val childList: MutableList<Child>) : RecyclerView.Adapter<ParentsChildListAdapter.CustomViewHolder>() {
     override fun onCreateViewHolder(
