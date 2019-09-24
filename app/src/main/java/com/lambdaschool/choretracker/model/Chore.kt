@@ -17,6 +17,9 @@ class Chore (
     val repeating: Boolean,
     val interval: String, // "daily", "weekly", "bi-weekly", "monthly"
     val pointValue: Int,
+    val childCompleted: Boolean,
+    val parentCompleted: Boolean,
+    val child_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull
     val chore_id: Int

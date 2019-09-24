@@ -15,7 +15,7 @@ class Child (
     val labelColorHex: String, // "#FFFFFF"
     val earnedPoints: Int,
     val photo_id: String, // "${child_id}_${timestamp}" where timestamp = 'MM-DD-YYYY_HHMMSS' in 24h format
-    val chore_id: String,
+    val parent_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull
     val child_id: Int
