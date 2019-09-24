@@ -1,4 +1,4 @@
-package com.lambdaschool.choretracker.activity.ui_child.notifications
+package com.lambdaschool.choretracker.activity.ui_parent.children
 
 import android.content.Context
 import android.os.Bundle
@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 
-class ChildTradeFragment : Fragment() {
+class ChildrenFragment : Fragment() {
 
-    private lateinit var childTradeViewModel: ChildTradeViewModel
-    private var listenerChild: OnChildTradeFragmentInteractionListener? = null
+    private lateinit var childrenViewModel: ChildrenViewModel
+    private var listenerParent: OnParentChildrenListFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        childTradeViewModel =
-            ViewModelProviders.of(this).get(ChildTradeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_trade_child, container, false)
-        /*val textView: TextView = root.findViewById(R.id.tv_child_notifications)
-        childTradeViewModel.text.observe(this, Observer {
+        childrenViewModel =
+            ViewModelProviders.of(this).get(ChildrenViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
+        /*val textView: TextView = root.findViewById(R.id.tv_parent_dashboard)
+        childrenViewModel.text.observe(this, Observer {
             textView.text = it
         })*/
         return root
@@ -36,8 +36,8 @@ class ChildTradeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnChildTradeFragmentInteractionListener) {
-            listenerChild = context
+        if (context is OnParentChildrenListFragmentInteractionListener) {
+            listenerParent = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnParentChildrenListFragmentInteractionListener")
         }
@@ -45,10 +45,10 @@ class ChildTradeFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        listenerChild = null
+        listenerParent = null
     }
 
-    interface OnChildTradeFragmentInteractionListener {
-        fun onChildTradeFragmentInteractionListener()
+    interface OnParentChildrenListFragmentInteractionListener {
+        fun onParentChildrenListFragmentInteractionListener()
     }
 }
