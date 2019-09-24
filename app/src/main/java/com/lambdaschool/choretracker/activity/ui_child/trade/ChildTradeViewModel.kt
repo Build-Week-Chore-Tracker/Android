@@ -1,7 +1,5 @@
-package com.lambdaschool.choretracker.activity.ui_child.notifications
+package com.lambdaschool.choretracker.activity.ui_child.trade
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ChildTradeViewModel : ViewModel() {

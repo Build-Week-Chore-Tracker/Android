@@ -1,4 +1,4 @@
-package com.lambdaschool.choretracker.activity.ui_child.dashboard
+package com.lambdaschool.choretracker.activity.ui_child.points
 
 import android.content.Context
 import android.os.Bundle
