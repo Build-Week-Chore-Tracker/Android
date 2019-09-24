@@ -39,7 +39,7 @@ class ChildTradeFragment : Fragment() {
         if (context is OnChildTradeFragmentInteractionListener) {
             listenerChild = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnChildTradeFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnParentChildrenListFragmentInteractionListener")
         }
     }
 
