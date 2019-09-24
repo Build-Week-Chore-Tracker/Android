@@ -1,6 +1,7 @@
 package com.lambdaschool.choretracker.activity
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,8 +11,27 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragment
+import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
+import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
 
-class ParentMainActivity : AppCompatActivity() {
+class ParentMainActivity : AppCompatActivity(),
+ChildrenFragment.OnParentChildrenListFragmentInteractionListener,
+HomeFragment.OnParentChoresFragmentInteractionListener,
+NotificationsFragment.OnStoreFragmentInteractionListener{
+
+
+    override fun onParentChildrenListFragmentInteractionListener() {
+
+    }
+
+    override fun onParentChoresFragmentInteractionListener() {
+
+    }
+
+    override fun onStoreFragmentInteractionListener() {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
