@@ -17,6 +17,8 @@ class Chore (
     val repeating: Boolean,
     val interval: String, // "daily", "weekly", "bi-weekly", "monthly"
     val pointValue: Int,
-    @PrimaryKey(autoGenerate = true)
+
+    @PrimaryKey(autoGenerate = true) @NonNull
     val chore_id: Int
+
     ) : Serializable
