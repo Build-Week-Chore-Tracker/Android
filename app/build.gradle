@@ -58,7 +58,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
 
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
