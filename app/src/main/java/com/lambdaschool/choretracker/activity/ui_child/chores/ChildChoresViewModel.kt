@@ -14,4 +14,8 @@ class ChildChoresViewModel : ViewModel() {
     fun getAllChores() : LiveData<List<Chore>> {
         return repo.getAllChores()
     }
+
+    fun createChore(chore: Chore) {
+        repo.createChore(chore)
+    }
 }

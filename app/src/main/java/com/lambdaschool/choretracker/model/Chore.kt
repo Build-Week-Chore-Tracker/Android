@@ -21,6 +21,6 @@ class Chore (
     val child_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull
-    val chore_id: Int
+    val chore_id: Int = 0
 
     ) : Serializable

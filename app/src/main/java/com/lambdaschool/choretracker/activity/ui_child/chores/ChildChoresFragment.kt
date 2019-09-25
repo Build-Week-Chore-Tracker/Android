@@ -22,6 +22,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
@@ -30,6 +31,7 @@ import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
+import kotlinx.android.synthetic.main.fragment_chores_child.*
 import lecho.lib.hellocharts.view.PieChartView
 
 class ChildChoresFragment : Fragment() {
@@ -45,16 +47,28 @@ class ChildChoresFragment : Fragment() {
     ): View? {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_chores_child, container, false)
-        /*val textView: TextView = root.findViewById(R.id.tv_child_home)
-        childChoresViewModel.text.observe(this, Observer {
-            textView.text = it
-        })*/
-        return root
+
+        childChoresViewModel.getAllChores().observe(this, Observer { it.forEachIndexed { index, t ->
+            if (index == 0) {
+                ChoreList.choreList.clear()
+            }
+
+            ChoreList.choreList.add(t)
+
+            if (index == it.size -1) {
+                viewAdapter?.notifyDataSetChanged()
+            }
+        } })
+
+        return inflater.inflate(R.layout.fragment_chores_child, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btn_add_chore.setOnClickListener {
+            childChoresViewModel.createChore(Chore("Take trash out", "Do what you're told", 9000, false, 0))
+        }
 
         setupRecyclerView(rv_child_chore_list)
     }
@@ -102,9 +116,11 @@ class ChildChoresFragment : Fragment() {
 
             holder.name.text = item.title
             holder.points.text = "${item.pointValue} Pts"
+
             holder.card.setOnClickListener {
                 listener?.onChildChoresFragmentInteractionListener(item, false)
             }
+
             holder.card.setOnLongClickListener {
                 listener?.onChildChoresFragmentInteractionListener(item, true)
                 true
