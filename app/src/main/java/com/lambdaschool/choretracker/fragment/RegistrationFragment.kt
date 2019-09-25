@@ -1,18 +1,20 @@
 package com.lambdaschool.choretracker.fragment
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.LoginActivity
-import com.lambdaschool.choretracker.model.RegisterAPI
+import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.util.openSoftKeyboard
-import kotlinx.android.synthetic.main.activity_login.*
+import com.lambdaschool.choretracker.viewmodel.RegistrationFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,7 @@ class RegistrationFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnRegistrationFragmentInteractionListener? = null
+    lateinit var viewModel: RegistrationFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,9 @@ class RegistrationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewModel = ViewModelProviders.of(this).get(RegistrationFragmentViewModel::class.java)
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false)
     }
@@ -66,11 +72,21 @@ class RegistrationFragment : Fragment() {
             val regEmail = et_registration_email.text.toString()
             val regPassword = et_registration_password.text.toString()
 
-            listener?.onRegistrationFragmentInteraction(RegisterAPI(
+            /*listener?.onRegistrationFragmentInteraction(CredentialsAPI(
                 regName,
                 regUserName,
                 regEmail,
-                regPassword), true)
+                regPassword), true)*/
+
+            viewModel.registerUser(CredentialsAPI(regName, regUserName, regEmail, regPassword)).observe(this, Observer {
+                if (it) {
+                    closeFragmentCleanup()
+                    Toast.makeText(context, "Registration successful! Please Login.", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(context, "Failure to register", Toast.LENGTH_SHORT).show()
+                }
+            })
 
         }
 
@@ -102,11 +118,11 @@ class RegistrationFragment : Fragment() {
      * for more information.
      */
     interface OnRegistrationFragmentInteractionListener {
-        fun onRegistrationFragmentInteraction(registrationInfo: RegisterAPI, clickedRegister: Boolean)
+        fun onRegistrationFragmentInteraction(registrationInfo: CredentialsAPI, clickedRegister: Boolean)
     }
 
     fun closeFragmentCleanup() {
-        listener?.onRegistrationFragmentInteraction(RegisterAPI(
+        listener?.onRegistrationFragmentInteraction(CredentialsAPI(
             LoginActivity.LINEAR_LAYOUT_VISIBILITY_KEY, "", "", ""),
             false)
 

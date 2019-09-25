@@ -4,18 +4,16 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.fragment.RegistrationFragment
-import com.lambdaschool.choretracker.model.LoginCredential
-import com.lambdaschool.choretracker.model.LoginCredentialList
-import com.lambdaschool.choretracker.model.RegisterAPI
+import com.lambdaschool.choretracker.model.CredentialsAPI
+import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.util.openSoftKeyboard
+import com.lambdaschool.choretracker.viewmodel.LoginActivityViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-
-
 
 class LoginActivity : AppCompatActivity(),
     RegistrationFragment.OnRegistrationFragmentInteractionListener {
@@ -25,30 +23,24 @@ class LoginActivity : AppCompatActivity(),
         const val LINEAR_LAYOUT_VISIBILITY_KEY = "KJUGBHA0S8IHBVGOU1H0EI9FNPIQSHJ0FIPAISDN09HA9SUID"
     }
 
+    lateinit var viewModel: LoginActivityViewModel
+    var prefs: Prefs? = null
+
     override fun onRegistrationFragmentInteraction(
-        registrationInfo: RegisterAPI,
+        registrationInfo: CredentialsAPI,
         clickedRegister: Boolean) {
 
         if (!clickedRegister && registrationInfo.name == LINEAR_LAYOUT_VISIBILITY_KEY) {
+
             ll_login.visibility = View.VISIBLE
             et_login_username.requestFocus()
             openSoftKeyboard(this, et_login_username)
+
         } else if (clickedRegister) {
 
-            if (registrationInfo.username.isNotEmpty() && registrationInfo.password.isNotEmpty()) {
-
-                Toast.makeText(
-                    this, "Name: ${registrationInfo.name}\n" +
-                            "Email: ${registrationInfo.email}\n" +
-                            "Username: ${registrationInfo.username}\n" +
-                            "Password: ${registrationInfo.password}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                simulateNetworkCall()
-
-            } else
+            if (registrationInfo.username.isEmpty() || registrationInfo.password.isEmpty()) {
                 Toast.makeText(this, "Username & Password fields are required for registration", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -57,33 +49,26 @@ class LoginActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        LoginCredentialList.loginCredentialList.add(LoginCredential("parent", "", true))
-        LoginCredentialList.loginCredentialList.add(LoginCredential("child", "", false))
+        prefs = Prefs(this)
 
         et_login_username.requestFocus()
         openSoftKeyboard(this, et_login_username)
 
-        var counter = 0
-
         btn_login.setOnClickListener {
 
-            simulateNetworkCall()
+            val logUserName = et_login_username.text.toString()
+            val logPassword = et_login_password.text.toString()
 
-            LoginCredentialList.loginCredentialList.forEach {
-
-                if (et_login_username.text.toString() == it.username) {
-                    counter++
-                    if (it.isParent) {
-                        loginUserType(this, it.isParent)
-                    } else {
-                        loginUserType(this, it.isParent)
-                    }
-                }
-            }
-
-            if (counter == 0) {
-                Toast.makeText(this, "please login as 'parent' or 'child'", Toast.LENGTH_SHORT)
-                    .show()
+            if (logUserName.isNotEmpty() && logPassword.isNotEmpty()) {
+                viewModel.loginUser(CredentialsAPI("", logUserName, "", logPassword))
+                    .observe(this, Observer {
+                        if (it) {
+                            val loginCreds = prefs?.readLoginCredentials()
+                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+                        }
+                    })
             }
         }
 
@@ -107,14 +92,6 @@ class LoginActivity : AppCompatActivity(),
         } else {
             super.onBackPressed()
         }
-    }
-
-    private fun simulateNetworkCall() {
-        pb_login.visibility = View.VISIBLE
-        val handler = Handler()
-        handler.postDelayed({
-            pb_login.visibility = View.INVISIBLE
-        }, 3000)
     }
 
     private fun getBackStackCount(): Int {
