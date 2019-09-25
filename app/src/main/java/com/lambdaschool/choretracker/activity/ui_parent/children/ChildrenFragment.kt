@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +43,24 @@ class ChildrenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        childrenViewModel.getAllChild()
+        childrenViewModel.getAllChild().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                it.forEachIndexed { index, child ->
+                    if (index == 0) {
+                        ChildList.childList.clear()
+                    }
+
+                    ChildList.childList.add(child)
+
+                    if (index == it.size - 1) {
+                        viewAdapter?.notifyDataSetChanged()
+                    }
+                }
+            } else {
+                ChildList.childList.clear()
+                viewAdapter?.notifyDataSetChanged()
+            }
+        })
         setupRecyclerView(recyclerview_children)
 
     }
