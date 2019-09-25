@@ -14,6 +14,7 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragment
 import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
 import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
+import com.lambdaschool.choretracker.model.Child
 
 class ParentMainActivity : AppCompatActivity(),
 ChildrenFragment.OnParentChildrenListFragmentInteractionListener,
@@ -21,7 +22,7 @@ HomeFragment.OnParentChoresFragmentInteractionListener,
 NotificationsFragment.OnStoreFragmentInteractionListener{
 
 
-    override fun onParentChildrenListFragmentInteractionListener() {
+    override fun onParentChildrenListFragmentInteractionListener(child: Child) {
 
     }
 

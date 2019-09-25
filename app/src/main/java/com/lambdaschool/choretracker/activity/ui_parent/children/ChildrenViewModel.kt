@@ -1,11 +1,13 @@
 package com.lambdaschool.choretracker.activity.ui_parent.children
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.repo
 
 class ChildrenViewModel : ViewModel() {
 
-    /*private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    fun getAllChild(): LiveData<List<Child>> {
+        return repo.getAllChild()
     }
-    val text: LiveData<String> = _text*/
 }
