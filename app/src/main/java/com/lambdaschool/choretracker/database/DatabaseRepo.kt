@@ -3,14 +3,76 @@ package com.lambdaschool.choretracker.database
 import android.content.Context
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.lambdaschool.choretracker.DatabaseRepoInterface
-import com.lambdaschool.choretracker.model.Child
-import com.lambdaschool.choretracker.model.Chore
+import com.lambdaschool.choretracker.model.*
+import com.lambdaschool.choretracker.prefs
+import com.lambdaschool.choretracker.retrofit.ChoreTrackerAPI
+import com.lambdaschool.choretracker.util.Prefs
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
 
+    var retrofitInstance = ChoreTrackerAPI.Factory.create()
     val context = contxt.applicationContext
+
+    override fun registerUser(creds: CredentialsAPI): LiveData<Boolean> {
+
+        val registrationSuccessful = MutableLiveData<Boolean>()
+        var prefs: Prefs? = null
+
+        retrofitInstance.userRegistration(creds).enqueue(object: Callback<RegistrationReturnedAPI>{
+
+            override fun onFailure(call: Call<RegistrationReturnedAPI>, t: Throwable) {
+                registrationSuccessful.value = false
+            }
+
+            override fun onResponse(
+                call: Call<RegistrationReturnedAPI>,
+                response: Response<RegistrationReturnedAPI>
+            ) {
+                registrationSuccessful.value = true
+
+            }
+        })
+        return registrationSuccessful
+    }
+
+    override fun loginUser(creds: CredentialsAPI): LiveData<Boolean> {
+
+        val loginSuccessful = MutableLiveData<Boolean>()
+
+        retrofitInstance.userLogin(creds).enqueue(object: Callback<LoginReturnedAPI> {
+            override fun onFailure(call: Call<LoginReturnedAPI>, t: Throwable) {
+                loginSuccessful.value = false
+            }
+
+            override fun onResponse(
+                call: Call<LoginReturnedAPI>,
+                response: Response<LoginReturnedAPI>
+            ) {
+                loginSuccessful.value = true
+
+                var token = ""
+                response.body()?.token?.let {
+                    token = it
+                }
+
+                var userId = -1
+                response.body()?.user?.let {
+                    userId = it
+                }
+
+                prefs.createLoginCredentialEntry(LoginReturnedAPI("", token, userId))
+
+            }
+
+        })
+        return loginSuccessful
+    }
 
     // Chore table
     override fun createChore(chore: Chore) {
