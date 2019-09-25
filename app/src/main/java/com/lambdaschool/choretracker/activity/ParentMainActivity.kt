@@ -3,7 +3,6 @@ package com.lambdaschool.choretracker.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,13 +12,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.lambdaschool.choretracker.AddChildActivity
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragment
-import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenViewModel
 import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
 import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
-import com.lambdaschool.choretracker.database.DatabaseRepo
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.viewmodel.ParentMainActivityViewModel
 
@@ -37,7 +33,9 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
 
 
     override fun onParentChildrenListFragmentInteractionListener(child: Child) {
-
+        val intent = Intent(this, ChildDetailActivity::class.java)
+        intent.putExtra(CHILD_REQUEST_KEY, child)
+        startActivity(intent)
     }
 
     override fun onParentChoresFragmentInteractionListener() {
