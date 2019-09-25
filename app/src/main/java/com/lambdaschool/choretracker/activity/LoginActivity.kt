@@ -34,13 +34,21 @@ class LoginActivity : AppCompatActivity(),
             et_login_username.requestFocus()
             openSoftKeyboard(this, et_login_username)
         } else if (clickedRegister) {
-            Toast.makeText(this, "Name: ${registrationInfo.name}\n" +
-                    "Email: ${registrationInfo.email}\n" +
-                    "Username: ${registrationInfo.username}\n" +
-                    "Password: ${registrationInfo.password}",
-                Toast.LENGTH_SHORT).show()
 
-            simulateNetworkCall()
+            if (registrationInfo.username.isNotEmpty() && registrationInfo.password.isNotEmpty()) {
+
+                Toast.makeText(
+                    this, "Name: ${registrationInfo.name}\n" +
+                            "Email: ${registrationInfo.email}\n" +
+                            "Username: ${registrationInfo.username}\n" +
+                            "Password: ${registrationInfo.password}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                simulateNetworkCall()
+
+            } else
+                Toast.makeText(this, "Username & Password fields are required for registration", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -88,10 +96,6 @@ class LoginActivity : AppCompatActivity(),
                 .replace(R.id.registration_fragment_holder, fragmentRegister, FRAG_TAG_REGISTRATION)
                 .addToBackStack(null)
                 .commit()
-            /*val url = "https://github.com/Build-Week-Chore-Tracker/android"
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)*/
         }
     }
 

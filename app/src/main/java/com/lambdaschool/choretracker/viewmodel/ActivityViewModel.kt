@@ -5,7 +5,7 @@ import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.repo
 
-class ChildMainActivityViewModel {
+class ActivityViewModel {
 
     // Chores
     val entriesChore: LiveData<List<Chore>> by lazy {
