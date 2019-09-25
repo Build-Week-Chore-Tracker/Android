@@ -36,14 +36,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <!--<ProgressBar
-            android:id="@+id/pb_registration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:progressTint="@color/secondaryDarkColor"
-            android:visibility="visible" />-->
-
         <LinearLayout
             android:orientation="vertical"
             android:gravity="center"
@@ -86,7 +78,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="32dp" />
+                android:layout_height="8dp" />
 
             <Button
                 android:id="@+id/btn_registration_submit"
