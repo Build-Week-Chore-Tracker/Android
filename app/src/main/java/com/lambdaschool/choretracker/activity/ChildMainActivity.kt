@@ -24,11 +24,11 @@ class ChildMainActivity : AppCompatActivity(),
 
     }
 
-    override fun onChildChoresFragmentInteractionListener(entry: Chore, longPress: Boolean) {
+    override fun onChildChoresFragmentInteractionListener(chore: Chore, longPress: Boolean) {
         if (!longPress) {
-            Toast.makeText(this, "${entry.title} was clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${chore.title} was clicked. Position: ${chore.chore_id}", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "${entry.title} was LONGPRESSED", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${chore.title} was LONGPRESSED", Toast.LENGTH_SHORT).show()
         }
     }
 

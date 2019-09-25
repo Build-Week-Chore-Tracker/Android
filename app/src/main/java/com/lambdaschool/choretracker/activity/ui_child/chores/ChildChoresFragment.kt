@@ -32,6 +32,7 @@ import com.lambdaschool.choretracker.model.ChoreList
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
 import kotlinx.android.synthetic.main.fragment_chores_child.*
+import kotlinx.android.synthetic.main.fragment_registration.*
 import lecho.lib.hellocharts.view.PieChartView
 
 class ChildChoresFragment : Fragment() {
@@ -48,17 +49,24 @@ class ChildChoresFragment : Fragment() {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
 
-        childChoresViewModel.getAllChores().observe(this, Observer { it.forEachIndexed { index, t ->
-            if (index == 0) {
+        childChoresViewModel.getAllChores().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                it.forEachIndexed { index, t ->
+                    if (index == 0) {
+                        ChoreList.choreList.clear()
+                    }
+
+                    ChoreList.choreList.add(t)
+
+                    if (index == it.size - 1) {
+                        viewAdapter?.notifyDataSetChanged()
+                    }
+                }
+            } else {
                 ChoreList.choreList.clear()
-            }
-
-            ChoreList.choreList.add(t)
-
-            if (index == it.size -1) {
                 viewAdapter?.notifyDataSetChanged()
             }
-        } })
+        })
 
         return inflater.inflate(R.layout.fragment_chores_child, container, false)
     }
@@ -88,18 +96,19 @@ class ChildChoresFragment : Fragment() {
     }
 
     interface OnChildChoresFragmentInteractionListener {
-        fun onChildChoresFragmentInteractionListener(entry: Chore, longPress: Boolean)
+        fun onChildChoresFragmentInteractionListener(chore: Chore, longPress: Boolean)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        viewAdapter = ChoreRecyclerViewAdapter(ChoreList.choreList/*<-- temporary*/, listener)
+        viewAdapter = ChoreRecyclerViewAdapter(ChoreList.choreList, listener, childChoresViewModel)
         recyclerView.adapter = viewAdapter
     }
 
     class ChoreRecyclerViewAdapter(
         /*private val parentActivity: ChildChoresFragment,*/
         private val values: List<Chore>,
-        private val listener: OnChildChoresFragmentInteractionListener?
+        private val listener: OnChildChoresFragmentInteractionListener?,
+        private val viewModel: ChildChoresViewModel
     ) : RecyclerView.Adapter<ChoreRecyclerViewAdapter.ViewHolder>() {
 
         lateinit var context: Context
@@ -123,6 +132,7 @@ class ChildChoresFragment : Fragment() {
 
             holder.card.setOnLongClickListener {
                 listener?.onChildChoresFragmentInteractionListener(item, true)
+                viewModel.deleteChore(item)
                 true
             }
         }

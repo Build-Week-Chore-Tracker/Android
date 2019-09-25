@@ -18,4 +18,8 @@ class ChildChoresViewModel : ViewModel() {
     fun createChore(chore: Chore) {
         repo.createChore(chore)
     }
+
+    fun deleteChore(chore: Chore) {
+        repo.deleteChore(chore)
+    }
 }
