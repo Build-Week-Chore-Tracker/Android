@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
@@ -30,7 +32,7 @@ class ChildrenFragment : Fragment() {
     ): View? {
         childrenViewModel =
             ViewModelProviders.of(this).get(ChildrenViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_chores_parent, container, false)
+        val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
         /*val textView: TextView = root.findViewById(R.id.tv_parent_dashboard)
         childrenViewModel.text.observe(this, Observer {
             textView.text = it
@@ -41,6 +43,24 @@ class ChildrenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        childrenViewModel.getAllChild().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                it.forEachIndexed { index, child ->
+                    if (index == 0) {
+                        ChildList.childList.clear()
+                    }
+
+                    ChildList.childList.add(child)
+
+                    if (index == it.size - 1) {
+                        viewAdapter?.notifyDataSetChanged()
+                    }
+                }
+            } else {
+                ChildList.childList.clear()
+                viewAdapter?.notifyDataSetChanged()
+            }
+        })
         setupRecyclerView(recyclerview_children)
 
     }
@@ -64,7 +84,9 @@ class ChildrenFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
+        val layoutManager = LinearLayoutManager(this.context)
         viewAdapter = ParentsChildrenViewAdapter(ChildList.childList, listenerParent)
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = viewAdapter
     }
 
@@ -89,9 +111,9 @@ class ChildrenFragment : Fragment() {
             holder.name.text = child.name
 
 
-            /*holder.card.setOnClickListener {
+            holder.card.setOnClickListener {
                 listener?.onParentChildrenListFragmentInteractionListener(child)
-            }*/
+            }
 
             /*holder.card.setOnLongClickListener {
                 listener?.onParentChildrenListFragmentInteractionListener(item, true)

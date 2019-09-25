@@ -6,13 +6,13 @@
     app:startDestination="@+id/navigation_children">
 
     <fragment
-        android:id="@+id/navigation_children"
+        android:id="@+id/navigation_chores"
         android:name="com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment"
         android:label="@string/title_children"
         tools:layout="@layout/fragment_dashboard_parent" />
 
     <fragment
-        android:id="@+id/navigation_chores"
+        android:id="@+id/navigation_children"
         android:name="com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragment"
         android:label="@string/title_chores"
         tools:layout="@layout/fragment_chores_parent" />
