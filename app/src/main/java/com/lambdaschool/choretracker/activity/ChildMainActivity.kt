@@ -13,7 +13,6 @@ import com.lambdaschool.choretracker.activity.ui_child.points.ChildPointsFragmen
 import com.lambdaschool.choretracker.activity.ui_child.chores.ChildChoresFragment
 import com.lambdaschool.choretracker.activity.ui_child.trade.ChildTradeFragment
 import com.lambdaschool.choretracker.model.Chore
-import com.lambdaschool.choretracker.viewmodel.ChildMainActivityViewModel
 
 class ChildMainActivity : AppCompatActivity(),
     ChildPointsFragment.OnChildPointsFragmentInteractionListener,
