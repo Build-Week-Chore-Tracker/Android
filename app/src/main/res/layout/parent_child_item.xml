@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:id="@+id/cardview_parent_child_list"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
+    android:id="@+id/cardview_parent_child_list"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="15dp">
 
-    <TextView
-        android:id="@+id/tv_parent_child_view_name"
+    <LinearLayout
+        android:id="@+id/linear_layout_parent_child_item"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"/>
+        android:layout_height="wrap_content">
 
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/pie_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_parent_child_view_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:gravity="center_vertical"/>
+
+        <lecho.lib.hellocharts.view.PieChartView
+            android:id="@+id/pie_chart"
+            android:layout_width="75dp"
+            android:layout_height="75dp" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -21,7 +21,7 @@ class ChildrenFragment : Fragment() {
     ): View? {
         childrenViewModel =
             ViewModelProviders.of(this).get(ChildrenViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
+        val root = inflater.inflate(R.layout.fragment_chores_parent, container, false)
         /*val textView: TextView = root.findViewById(R.id.tv_parent_dashboard)
         childrenViewModel.text.observe(this, Observer {
             textView.text = it
