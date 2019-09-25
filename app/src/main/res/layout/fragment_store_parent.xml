@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="PARENT HOME"
-        android:id="@+id/tv_parent_home"
+        android:text="PARENT STORE"
+        android:id="@+id/tv_parent_notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
