@@ -1,4 +1,4 @@
-package com.lambdaschool.choretracker.activity.ui_child.dashboard
+package com.lambdaschool.choretracker.activity.ui_child.points
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.model.Chore
+import kotlinx.android.synthetic.main.fragment_points_child.*
 
 class ChildPointsFragment : Fragment() {
 
@@ -22,10 +24,6 @@ class ChildPointsFragment : Fragment() {
         childPointsViewModel =
             ViewModelProviders.of(this).get(ChildPointsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_points_child, container, false)
-        /*val textView: TextView = root.findViewById(R.id.tv_child_dashboard)
-        childPointsViewModel.text.observe(this, Observer {
-            textView.text = it
-        })*/
         return root
     }
 

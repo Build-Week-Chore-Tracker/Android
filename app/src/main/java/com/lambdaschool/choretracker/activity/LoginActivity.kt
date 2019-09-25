@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.model.Chore
+import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.model.LoginCredential
 import com.lambdaschool.choretracker.model.LoginCredentialList
 import com.lambdaschool.choretracker.util.openSoftKeyboard

@@ -1,6 +1,7 @@
 package com.lambdaschool.choretracker.database
 
 import android.content.Context
+import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.lambdaschool.choretracker.DatabaseRepoInterface
@@ -13,7 +14,7 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
 
     // Chore table
     override fun createChore(chore: Chore) {
-        database.databaseDao().createChore(chore)
+        CreateChoreAsyncTask(database.databaseDao()).execute(chore)
     }
 
     override fun getAllChores(): LiveData<List<Chore>> {
@@ -21,16 +22,16 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
     }
 
     override fun updateChore(chore: Chore) {
-        database.databaseDao().updateChore(chore)
+        UpdateChoreAsyncTask(database.databaseDao()).execute(chore)
     }
 
     override fun deleteChore(chore: Chore) {
-        database.databaseDao().deleteChore(chore)
+        DeleteChoreAsyncTask(database.databaseDao()).execute(chore)
     }
 
     // Child table
     override fun createChild(child: Child) {
-        database.databaseDao().createChild(child)
+        CreateChildAsyncTask(database.databaseDao()).execute(child)
     }
 
     override fun getAllChild(): LiveData<List<Child>> {
@@ -38,11 +39,11 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
     }
 
     override fun updateChild(child: Child) {
-        database.databaseDao().updateChild(child)
+        UpdateChildAsyncTask(database.databaseDao()).execute(child)
     }
 
     override fun deleteChild(child: Child) {
-        database.databaseDao().deleteChild(child)
+        DeleteChildAsyncTask(database.databaseDao()).execute(child)
     }
 
     private val database by lazy {
@@ -52,5 +53,62 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
             "chore_database"
         ).fallbackToDestructiveMigration()
             .build()
+    }
+
+    companion object {
+
+        class CreateChoreAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Chore, Unit, Unit>() {
+
+            override fun doInBackground(vararg chore: Chore?) {
+                chore[0]?.let {
+                    dbDao.createChore(it)
+                }
+            }
+        }
+
+        class UpdateChoreAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Chore, Unit, Unit>() {
+
+            override fun doInBackground(vararg chore: Chore?) {
+                chore[0]?.let {
+                    dbDao.updateChore(it)
+                }
+            }
+        }
+
+        class DeleteChoreAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Chore, Unit, Unit>() {
+
+            override fun doInBackground(vararg chore: Chore?) {
+                chore[0]?.let {
+                    dbDao.deleteChore(it)
+                }
+            }
+        }
+
+        class CreateChildAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Child, Unit, Unit>() {
+
+            override fun doInBackground(vararg child: Child?) {
+                child[0]?.let {
+                    dbDao.createChild(it)
+                }
+            }
+        }
+
+        class UpdateChildAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Child, Unit, Unit>() {
+
+            override fun doInBackground(vararg child: Child?) {
+                child[0]?.let {
+                    dbDao.updateChild(it)
+                }
+            }
+        }
+
+        class DeleteChildAsyncTask(val dbDao: DatabaseDAO) : AsyncTask<Child, Unit, Unit>() {
+
+            override fun doInBackground(vararg child: Child?) {
+                child[0]?.let {
+                    dbDao.deleteChild(it)
+                }
+            }
+        }
     }
 }

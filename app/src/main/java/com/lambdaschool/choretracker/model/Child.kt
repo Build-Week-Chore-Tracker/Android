@@ -18,6 +18,6 @@ class Child (
     val parent_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull
-    val child_id: Int
+    val child_id: Int = 0
 
 ) : Serializable

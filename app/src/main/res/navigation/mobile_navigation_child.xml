@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/navigation_child_chores"
-        android:name="com.lambdaschool.choretracker.activity.ui_child.home.ChildChoresFragment"
+        android:name="com.lambdaschool.choretracker.activity.ui_child.chores.ChildChoresFragment"
         android:label="@string/title_home" />
 
     <fragment
         android:id="@+id/navigation_child_points"
-        android:name="com.lambdaschool.choretracker.activity.ui_child.dashboard.ChildPointsFragment"
+        android:name="com.lambdaschool.choretracker.activity.ui_child.points.ChildPointsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_points_child" />
 
     <fragment
         android:id="@+id/navigation_child_trade"
-        android:name="com.lambdaschool.choretracker.activity.ui_child.notifications.ChildTradeFragment"
+        android:name="com.lambdaschool.choretracker.activity.ui_child.trade.ChildTradeFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_trade_child" />
 </navigation>

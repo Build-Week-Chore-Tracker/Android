@@ -1,6 +1,7 @@
 package com.lambdaschool.choretracker.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,9 +9,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lambdaschool.choretracker.R
-import com.lambdaschool.choretracker.activity.ui_child.dashboard.ChildPointsFragment
-import com.lambdaschool.choretracker.activity.ui_child.home.ChildChoresFragment
-import com.lambdaschool.choretracker.activity.ui_child.notifications.ChildTradeFragment
+import com.lambdaschool.choretracker.activity.ui_child.points.ChildPointsFragment
+import com.lambdaschool.choretracker.activity.ui_child.chores.ChildChoresFragment
+import com.lambdaschool.choretracker.activity.ui_child.trade.ChildTradeFragment
+import com.lambdaschool.choretracker.model.Chore
+import com.lambdaschool.choretracker.viewmodel.ChildMainActivityViewModel
 
 class ChildMainActivity : AppCompatActivity(),
     ChildPointsFragment.OnChildPointsFragmentInteractionListener,
@@ -18,12 +21,19 @@ class ChildMainActivity : AppCompatActivity(),
     ChildTradeFragment.OnChildTradeFragmentInteractionListener {
 
     override fun onChildTradeFragmentInteractionListener() {
+
     }
 
-    override fun onChildChoresFragmentInteractionListener() {
+    override fun onChildChoresFragmentInteractionListener(entry: Chore, longPress: Boolean) {
+        if (!longPress) {
+            Toast.makeText(this, "${entry.title} was clicked", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "${entry.title} was LONGPRESSED", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onChildPointsFragmentInteractionListener() {
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
