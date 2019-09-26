@@ -6,12 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_add_chore"
-        android:text="add chore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <FrameLayout
         android:id="@+id/frameLayout"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

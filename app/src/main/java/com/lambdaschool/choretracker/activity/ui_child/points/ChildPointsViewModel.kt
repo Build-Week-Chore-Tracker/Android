@@ -7,12 +7,4 @@ import com.lambdaschool.choretracker.repo
 
 class ChildPointsViewModel : ViewModel() {
 
-    val entries: LiveData<List<Child>> by lazy {
-        getAllChild()
-    }
-
-    fun getAllChild() : LiveData<List<Child>> {
-        return repo.getAllChild()
-    }
-
 }

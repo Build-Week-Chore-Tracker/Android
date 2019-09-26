@@ -10,12 +10,4 @@ class ChildChoresViewModel : ViewModel() {
     fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>> {
         return repo.getAllChoresForChildId(childId)
     }
-
-    fun createChore(chore: Chore) {
-        repo.createChore(chore)
-    }
-
-    fun deleteChore(chore: Chore) {
-        repo.deleteChore(chore)
-    }
 }
