@@ -22,7 +22,6 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
     override fun registerUser(creds: CredentialsAPI): LiveData<Boolean> {
 
         val registrationSuccessful = MutableLiveData<Boolean>()
-        var prefs: Prefs? = null
 
         retrofitInstance.userRegistration(creds).enqueue(object: Callback<RegistrationReturnedAPI>{
 
@@ -35,7 +34,6 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
                 response: Response<RegistrationReturnedAPI>
             ) {
                 registrationSuccessful.value = true
-
             }
         })
         return registrationSuccessful

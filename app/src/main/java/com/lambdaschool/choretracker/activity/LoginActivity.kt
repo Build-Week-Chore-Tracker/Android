@@ -94,7 +94,6 @@ class LoginActivity : AppCompatActivity(),
             simulateNetworkCall()
             val logUserName = et_login_username.text.toString()
             val logPassword = et_login_password.text.toString()
-            var childId = -1
             var childLoginClicked = true
 
             //viewModel.createChildLoginCredential(ChildLoginCredential(logUserName, logPassword))
@@ -104,12 +103,9 @@ class LoginActivity : AppCompatActivity(),
                     if (childLoginClicked) {
 
                         childLoginClicked = false
-                        val uName = it.username
-                        val pass = it.password
-                        val childID = it.child_id
 
                         prefs?.deleteLoginCredentials()
-                        prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "", childId))
+                        prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "CHILD_TOKEN", it.child_id))
 
                         val intent = Intent(this, ChildMainActivity::class.java)
                         startActivity(intent)

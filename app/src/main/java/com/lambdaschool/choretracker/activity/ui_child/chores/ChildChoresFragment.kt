@@ -17,6 +17,7 @@ import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
+import kotlin.math.absoluteValue
 
 class ChildChoresFragment : Fragment() {
 
@@ -32,12 +33,18 @@ class ChildChoresFragment : Fragment() {
     ): View? {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_chores_child, container, false)
+    }
 
-        val loginCreds = prefs?.getLoginCredentials()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        prefs = Prefs(context!!)
+
         var userId = -1
 
-        loginCreds?.user?.let {
-            userId = it
+        prefs?.getLoginCredentials()?.let {
+            userId = it.user
         }
 
         childChoresViewModel.getAllChoresForChildId(userId).observe(this, Observer {
@@ -58,12 +65,6 @@ class ChildChoresFragment : Fragment() {
                 viewAdapter?.notifyDataSetChanged()
             }
         })
-
-        return inflater.inflate(R.layout.fragment_chores_child, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView(rv_child_chore_list)
     }
