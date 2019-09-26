@@ -43,7 +43,7 @@ class AddChildActivity : AppCompatActivity() {
                 userId = it
             }
 
-            val name = et_add_child_child_name.text.toString()
+            val name = et_add_child_child_name.text.toString().capitalize()
             val userName = et_add_child_username.text.toString()
             val password = et_add_child_password.text.toString()
             val childColor = when {
