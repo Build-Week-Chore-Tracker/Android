@@ -11,5 +11,5 @@
         android:layout_height="match_parent"/>
 
         <include
-        layout="@layout/parent_child_list"/>
+        layout="@layout/list_item_parent_child"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
