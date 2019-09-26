@@ -12,8 +12,14 @@ interface DatabaseDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createChore(chore: Chore)
 
-    @Query("SELECT * FROM chore_table")
-    fun getAllChores(): LiveData<List<Chore>>
+    @Query("SELECT * FROM chore_table WHERE parent_id = :parentId")
+    fun getAllChoresForParentId(parentId: Int): LiveData<List<Chore>>
+
+    @Query("SELECT * FROM chore_table WHERE child_id = :childId")
+    fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>>
+
+    @Query("SELECT * FROM chore_table WHERE parent_id = :parentId AND child_id != :childId")
+    fun getAllChoresForParentIdExceptChildId(parentId: Int, childId: Int): LiveData<List<Chore>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateChore(chore: Chore)
@@ -25,8 +31,8 @@ interface DatabaseDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createChild(child: Child)
 
-    @Query("SELECT * FROM child_table")
-    fun getAllChild(): LiveData<List<Child>>
+    @Query("SELECT * FROM child_table WHERE parent_id = :parentId")
+    fun getAllChildForParentId(parentId: Int): LiveData<List<Child>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateChild(child: Child)

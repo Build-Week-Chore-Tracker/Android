@@ -9,13 +9,15 @@ interface DatabaseRepoInterface {
 
     // Chore table
     fun createChore(chore: Chore)
-    fun getAllChores(): LiveData<List<Chore>>
+    fun getAllChoresForParentId(parentId: Int): LiveData<List<Chore>>
+    fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>>
+    fun getAllChoresForParentIdExceptChildId(parentId: Int, childId: Int): LiveData<List<Chore>>
     fun updateChore(chore: Chore)
     fun deleteChore(chore: Chore)
 
     // Child table
     fun createChild(child: Child)
-    fun getAllChild(): LiveData<List<Child>>
+    fun getAllChildForParentId(parentId: Int): LiveData<List<Child>>
     fun updateChild(child: Child)
     fun deleteChild(child: Child)
 

@@ -13,11 +13,9 @@ object ChoreList {
 class Chore (
     val title: String,
     val description: String,
-    //val dueDate: String, // MM-DD-YYYY
-    //val repeating: Boolean,
-    //val interval: String, // "daily", "weekly", "bi-weekly", "monthly"
     val pointValue: Int,
     val childCompleted: Boolean,
+    val parent_id: Int,
     val child_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull

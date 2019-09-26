@@ -72,11 +72,6 @@ class RegistrationFragment : Fragment() {
             val regEmail = et_registration_email.text.toString()
             val regPassword = et_registration_password.text.toString()
 
-            /*listener?.onRegistrationFragmentInteraction(CredentialsAPI(
-                regName,
-                regUserName,
-                regEmail,
-                regPassword), true)*/
             listener?.onRegistrationFragmentInteraction("", true)
 
             viewModel.registerUser(CredentialsAPI(regName, regUserName, regEmail, regPassword))
