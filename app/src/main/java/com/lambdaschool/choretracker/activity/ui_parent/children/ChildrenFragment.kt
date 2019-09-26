@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
-import kotlinx.android.synthetic.main.fragment_dashboard_parent.*
 import kotlinx.android.synthetic.main.parent_child_item.view.*
+import kotlinx.android.synthetic.main.parent_child_list.*
 import lecho.lib.hellocharts.view.PieChartView
 
 class ChildrenFragment : Fragment() {
