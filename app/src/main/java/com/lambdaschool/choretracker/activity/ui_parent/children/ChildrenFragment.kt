@@ -27,6 +27,7 @@ class ChildrenFragment : Fragment() {
     private lateinit var childrenViewModel: ChildrenViewModel
     private var listenerParent: OnParentChildrenListFragmentInteractionListener? = null
     private var viewAdapter: ParentsChildrenViewAdapter? = null
+    var prefs: Prefs? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,17 +37,20 @@ class ChildrenFragment : Fragment() {
         childrenViewModel =
             ViewModelProviders.of(this).get(ChildrenViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
-        /*val textView: TextView = root.findViewById(R.id.tv_parent_dashboard)
-        childrenViewModel.text.observe(this, Observer {
-            textView.text = it
-        })*/
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        childrenViewModel.getAllChild(0).observe(this, Observer {
+        val loginCreds = prefs?.readLoginCredentials()
+        var userId = -1
+
+        loginCreds?.user?.let {
+            userId = it
+        }
+
+        childrenViewModel.getAllChild(userId).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, child ->
                     if (index == 0) {
