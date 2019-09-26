@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.fragment.RegistrationFragment
-import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.model.LoginReturnedAPI
 import com.lambdaschool.choretracker.util.Prefs
@@ -65,7 +64,6 @@ class LoginActivity : AppCompatActivity(),
                         if (it) {
                             val loginCreds = prefs?.getLoginCredentials()
                             pb_login.visibility = View.INVISIBLE
-                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, ParentMainActivity::class.java)
                             startActivity(intent)
@@ -95,8 +93,6 @@ class LoginActivity : AppCompatActivity(),
             val logUserName = et_login_username.text.toString()
             val logPassword = et_login_password.text.toString()
             var childLoginClicked = true
-
-            //viewModel.createChildLoginCredential(ChildLoginCredential(logUserName, logPassword))
 
             viewModel.getChildLoginCredentialForUsernamePassword(logUserName, logPassword).observe(this, Observer {
                 if (it != null) {
