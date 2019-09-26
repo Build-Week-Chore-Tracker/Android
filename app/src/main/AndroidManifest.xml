@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ChoreDetailActivity"></activity>
+        <activity android:name=".activity.CreateChore"></activity>
+        <activity android:name=".activity.ChoreDetailActivity" />
         <activity android:name=".activity.ChildChoreDetialActivity" />
         <activity android:name=".activity.ChildDetailActivity" />
         <activity android:name=".activity.AddChildActivity" />

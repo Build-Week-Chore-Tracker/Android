@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.activity_child_chore_detial.*
 
 class ChoreDetailActivity : AppCompatActivity() {
 
+    companion object {
+        const val CUSTOM_CHORE_REQUEST_CODE = 289
+    }
+
     private lateinit var choreDetailViewModel: ChoreDetailActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
