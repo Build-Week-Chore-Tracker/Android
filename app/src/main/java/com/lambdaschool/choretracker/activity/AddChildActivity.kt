@@ -50,7 +50,7 @@ class AddChildActivity : AppCompatActivity() {
             if (name == "" || userName == "" || password == "") {
                 Toast.makeText(this, "Make sure Name, Username and password are not blank", Toast.LENGTH_SHORT).show()
             } else {
-                val child = Child(name, childColor, 0, "", 0)
+                val child = Child(name, childColor, 0, 0, "", 0)
                 val childCreds = ChildLoginCredential(userName, password)
 
                 val intent = Intent()
