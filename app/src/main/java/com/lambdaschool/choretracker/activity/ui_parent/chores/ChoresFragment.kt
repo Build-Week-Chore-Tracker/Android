@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fab_add_chore.setOnClickListener {
-
+            listenerParent?.onParentChoresFragmentInteractionListener(777)
         }
 
     }
@@ -54,6 +54,6 @@ class HomeFragment : Fragment() {
     }
 
     interface OnParentChoresFragmentInteractionListener {
-        fun onParentChoresFragmentInteractionListener()
+        fun onParentChoresFragmentInteractionListener(intentKey: Int)
     }
 }
