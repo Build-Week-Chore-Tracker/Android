@@ -50,11 +50,11 @@ class ChoreAdapter(val choreList: MutableList<Chore>) :
                 } else {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Who would you like this chore assigned to?")
-                    builder.setItems(childList.forEach {
+                    /*builder.setItems(childList.forEach {
                         it.name
                     }, DialogInterface.OnClickListener({ dialog, which ->
 
-                    }))
+                    }))*/
                     builder.create()
                 }
             }

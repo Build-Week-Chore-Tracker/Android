@@ -11,6 +11,7 @@ object ChoreList {
 
 object StandardChoreList {
     val standardChoreList = mutableListOf<Chore>(
+        Chore("Create your own chore", "Create your own chore", 5, false, "", -1, -1),
         Chore("Clean room", "Clean your room", 5, false, "", -1, -1),
         Chore("Make bed", "Make your bed", 5, false, "", -1, -1),
         Chore("Vacuum", "Vacuum the house", 5, false, "", -1, -1),
