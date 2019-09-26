@@ -3,6 +3,7 @@ package com.lambdaschool.choretracker.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.Chore
 
 @Dao
@@ -39,4 +40,17 @@ interface DatabaseDAO {
 
     @Delete
     fun deleteChild(child: Child)
+
+    // ChildLoginCredential table
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun createChildLoginCredential(childCreds: ChildLoginCredential)
+
+    @Query("SELECT * FROM child_login_credential WHERE username = :username AND password = :password")
+    fun getChildLoginCredentialForUsernamePassword(username: String, password: String): LiveData<ChildLoginCredential>
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateChildLoginCredential(childCreds: ChildLoginCredential)
+
+    @Delete
+    fun deleteChildLoginCredential(childCreds: ChildLoginCredential)
 }

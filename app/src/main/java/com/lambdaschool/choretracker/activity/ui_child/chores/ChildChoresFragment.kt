@@ -49,7 +49,7 @@ class ChildChoresFragment : Fragment() {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
 
-        childChoresViewModel.getAllChores().observe(this, Observer {
+        childChoresViewModel.getAllChoresForChildId().observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
