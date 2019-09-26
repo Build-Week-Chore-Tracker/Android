@@ -10,7 +10,7 @@ import com.lambdaschool.choretracker.adapter.ChoreAdapter
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.model.StandardChoreList
 import com.lambdaschool.choretracker.viewmodel.ChoreDetailActivityViewModel
-import kotlinx.android.synthetic.main.activity_child_chore_detial.*
+import kotlinx.android.synthetic.main.activity_chore_detail.*
 
 class ChoreDetailActivity : AppCompatActivity() {
 
@@ -18,7 +18,7 @@ class ChoreDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_child_chore_detial)
+        setContentView(R.layout.activity_chore_detail)
 
         choreDetailViewModel = ViewModelProviders.of(this).get(ChoreDetailActivityViewModel::class.java)
 
