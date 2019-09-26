@@ -78,8 +78,17 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         CreateChoreAsyncTask(database.databaseDao()).execute(chore)
     }
 
-    override fun getAllChores(): LiveData<List<Chore>> {
-        return database.databaseDao().getAllChores()
+    override fun getAllChoresForParentId(parentId: Int): LiveData<List<Chore>> {
+        return database.databaseDao().getAllChoresForParentId(parentId)
+    }
+
+    override fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>> {
+        return database.databaseDao().getAllChoresForChildId(childId)
+    }
+
+    override fun getAllChoresForParentIdExceptChildId(parentId: Int, childId: Int):
+            LiveData<List<Chore>> {
+        return database.databaseDao().getAllChoresForParentIdExceptChildId(parentId, childId)
     }
 
     override fun updateChore(chore: Chore) {
@@ -95,8 +104,8 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         CreateChildAsyncTask(database.databaseDao()).execute(child)
     }
 
-    override fun getAllChild(): LiveData<List<Child>> {
-        return database.databaseDao().getAllChild()
+    override fun getAllChildForParentId(parentId: Int): LiveData<List<Child>> {
+        return database.databaseDao().getAllChildForParentId(parentId)
     }
 
     override fun updateChild(child: Child) {
