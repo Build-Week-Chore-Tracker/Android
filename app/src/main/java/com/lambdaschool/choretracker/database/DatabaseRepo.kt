@@ -54,8 +54,6 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
                 call: Call<LoginReturnedAPI>,
                 response: Response<LoginReturnedAPI>
             ) {
-                loginSuccessful.value = true
-
                 var token = ""
                 response.body()?.token?.let {
                     token = it
@@ -68,6 +66,7 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
 
                 prefs.createLoginCredentialEntry(LoginReturnedAPI("", token, userId))
 
+                loginSuccessful.value = true
             }
 
         })

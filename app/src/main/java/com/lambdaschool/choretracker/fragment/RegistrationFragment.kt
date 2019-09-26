@@ -77,12 +77,13 @@ class RegistrationFragment : Fragment() {
                 regUserName,
                 regEmail,
                 regPassword), true)*/
+            listener?.onRegistrationFragmentInteraction("", true)
 
-            viewModel.registerUser(CredentialsAPI(regName, regUserName, regEmail, regPassword)).observe(this, Observer {
+            viewModel.registerUser(CredentialsAPI(regName, regUserName, regEmail, regPassword))
+                .observe(this, Observer {
                 if (it) {
-                    closeFragmentCleanup()
                     Toast.makeText(context, "Registration successful! Please Login.", Toast.LENGTH_SHORT).show()
-
+                    closeFragmentCleanup()
                 } else {
                     Toast.makeText(context, "Failure to register", Toast.LENGTH_SHORT).show()
                 }
@@ -118,13 +119,14 @@ class RegistrationFragment : Fragment() {
      * for more information.
      */
     interface OnRegistrationFragmentInteractionListener {
-        fun onRegistrationFragmentInteraction(registrationInfo: CredentialsAPI, clickedRegister: Boolean)
+        fun onRegistrationFragmentInteraction(key: String, clickedRegister: Boolean)
     }
 
     fun closeFragmentCleanup() {
-        listener?.onRegistrationFragmentInteraction(CredentialsAPI(
-            LoginActivity.LINEAR_LAYOUT_VISIBILITY_KEY, "", "", ""),
-            false)
+
+        listener?.onRegistrationFragmentInteraction(
+            LoginActivity.LINEAR_LAYOUT_VISIBILITY_KEY, false
+        )
 
         activity?.supportFragmentManager?.beginTransaction()
             ?.remove(this)
