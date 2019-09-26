@@ -26,6 +26,7 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
 
     companion object {
         const val CHILD_REQUEST_CODE = 77
+        const val CHORE_REQUEST_CODE = 65
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
     }
 
@@ -38,7 +39,11 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
         startActivity(intent)
     }
 
-    override fun onParentChoresFragmentInteractionListener() {
+    override fun onParentChoresFragmentInteractionListener(intentKey: Int) {
+        if (intentKey == 777) {
+            val intent = Intent(this, ChoreDetailActivity::class.java)
+            startActivityForResult(intent, CHORE_REQUEST_CODE)
+        }
 
     }
 
