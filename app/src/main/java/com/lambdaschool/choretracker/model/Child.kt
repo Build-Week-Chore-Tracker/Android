@@ -11,10 +11,11 @@ object ChildList {
 
 @Entity (tableName = "child_table")
 class Child (
-    val name: String,
-    val labelColorHex: String, // "#FFFFFF"
-    val earnedPoints: Int,
-    val photo_id: String, // "${child_id}_${timestamp}" where timestamp = 'MM-DD-YYYY_HHMMSS' in 24h format
+    var name: String,
+    var labelColorHex: String, // "#FFFFFF"
+    var earnedPoints: Int,
+    var numChoresComplete: Int,
+    var photo_id: String,
     val parent_id: Int,
 
     @PrimaryKey(autoGenerate = true) @NonNull

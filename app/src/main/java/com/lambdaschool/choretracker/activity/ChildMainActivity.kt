@@ -20,12 +20,17 @@ class ChildMainActivity : AppCompatActivity(),
     ChildChoresFragment.OnChildChoresFragmentInteractionListener,
     ChildTradeFragment.OnChildTradeFragmentInteractionListener {
 
+    companion object {
+        const val CHILD_CHORE_DETAIL_KEY = "LAHSD0FINHQ02IEFH"
+    }
+
     override fun onChildTradeFragmentInteractionListener() {
 
     }
 
     override fun onChildChoresFragmentInteractionListener(chore: Chore) {
         val intent = Intent(this, ChildChoreDetialActivity::class.java)
+        intent.putExtra(CHILD_CHORE_DETAIL_KEY, chore)
         startActivity(intent)
     }
 

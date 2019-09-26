@@ -1,7 +1,6 @@
 package com.lambdaschool.choretracker.activity.ui_parent.children
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,8 +17,8 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
 import com.lambdaschool.choretracker.util.Prefs
-import kotlinx.android.synthetic.main.parent_child_item.view.*
-import kotlinx.android.synthetic.main.parent_child_list.*
+import kotlinx.android.synthetic.main.item_parent_child.view.*
+import kotlinx.android.synthetic.main.list_item_parent_child.*
 import lecho.lib.hellocharts.view.PieChartView
 
 class ChildrenFragment : Fragment() {
@@ -107,7 +106,7 @@ class ChildrenFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.parent_child_item, parent, false)
+                .inflate(R.layout.item_parent_child, parent, false)
             context = parent.context
             return ViewHolder(view)
         }

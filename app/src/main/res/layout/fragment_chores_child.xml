@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/child_chore_item_list" />
+        <include layout="@layout/list_item_child_chore" />
 
     </FrameLayout>
 

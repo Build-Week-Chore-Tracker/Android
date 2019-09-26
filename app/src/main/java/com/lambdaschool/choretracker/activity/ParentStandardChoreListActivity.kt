@@ -9,22 +9,22 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.adapter.ChoreAdapter
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.model.StandardChoreList
-import com.lambdaschool.choretracker.viewmodel.ChoreDetailActivityViewModel
-import kotlinx.android.synthetic.main.activity_child_chore_detial.*
+import com.lambdaschool.choretracker.viewmodel.ParentStandardChoreListActivityViewModel
+import kotlinx.android.synthetic.main.activity_parent_standard_chore_list.*
 
-class ChoreDetailActivity : AppCompatActivity() {
+class ParentStandardChoreListActivity : AppCompatActivity() {
+
+    private lateinit var parentStandardChoreListViewModel: ParentStandardChoreListActivityViewModel
 
     companion object {
         const val CUSTOM_CHORE_REQUEST_CODE = 289
     }
 
-    private lateinit var choreDetailViewModel: ChoreDetailActivityViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_child_chore_detial)
+        setContentView(R.layout.activity_parent_standard_chore_list)
 
-        choreDetailViewModel = ViewModelProviders.of(this).get(ChoreDetailActivityViewModel::class.java)
+        parentStandardChoreListViewModel = ViewModelProviders.of(this).get(ParentStandardChoreListActivityViewModel::class.java)
 
         val recyclerView = recyclerview_chores
 
@@ -34,7 +34,7 @@ class ChoreDetailActivity : AppCompatActivity() {
         val adapter = ChoreAdapter(StandardChoreList.standardChoreList)
         recyclerView.adapter = adapter
 
-        choreDetailViewModel.getAllChores(-1).observe(this, Observer {
+        parentStandardChoreListViewModel.getAllChores(-1).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
