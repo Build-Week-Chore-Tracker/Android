@@ -1,6 +1,8 @@
 package com.lambdaschool.choretracker.activity.ui_parent.children
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -114,6 +116,7 @@ class ChildrenFragment : Fragment() {
             val child = childrenList[position]
 
             holder.name.text = child.name
+            holder.card.setCardBackgroundColor(Color.parseColor(child.labelColorHex))
 
 
             holder.card.setOnClickListener {
