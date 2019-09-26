@@ -20,7 +20,6 @@ class AddChildActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_child)
 
-        val addChildIntent = intent
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

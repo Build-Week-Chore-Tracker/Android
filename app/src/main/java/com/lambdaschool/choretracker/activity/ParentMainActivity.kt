@@ -75,7 +75,6 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_child) {
-            //TODO add code for creating child
             val intent = Intent(this, AddChildActivity::class.java)
             startActivityForResult(intent, CHILD_REQUEST_CODE)
         }
@@ -86,7 +85,6 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val child = data?.getSerializableExtra(CHILD_REQUEST_KEY) as Child
-
             parentViewModel.createChild(child)
         }
     }
