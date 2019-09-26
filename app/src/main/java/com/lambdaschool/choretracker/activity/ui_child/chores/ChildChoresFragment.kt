@@ -29,6 +29,7 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ChildMainActivity
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
+import com.lambdaschool.choretracker.util.Prefs
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
 import kotlinx.android.synthetic.main.fragment_chores_child.*
@@ -40,6 +41,7 @@ class ChildChoresFragment : Fragment() {
     private lateinit var childChoresViewModel: ChildChoresViewModel
     private var listener: OnChildChoresFragmentInteractionListener? = null
     private var viewAdapter: ChoreRecyclerViewAdapter? = null
+    var prefs: Prefs? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +51,14 @@ class ChildChoresFragment : Fragment() {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
 
-        childChoresViewModel.getAllChores().observe(this, Observer {
+        val loginCreds = prefs?.readLoginCredentials()
+        var userId = -1
+
+        loginCreds?.user?.let {
+            userId = it
+        }
+
+        childChoresViewModel.getAllChoresForChildId(userId).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
@@ -74,10 +83,6 @@ class ChildChoresFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_add_chore.setOnClickListener {
-            childChoresViewModel.createChore(Chore("Take trash out", "Do what you're told", 9000, false, 0))
-        }
-
         setupRecyclerView(rv_child_chore_list)
     }
 
@@ -96,7 +101,7 @@ class ChildChoresFragment : Fragment() {
     }
 
     interface OnChildChoresFragmentInteractionListener {
-        fun onChildChoresFragmentInteractionListener(chore: Chore, longPress: Boolean)
+        fun onChildChoresFragmentInteractionListener(chore: Chore)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -127,13 +132,7 @@ class ChildChoresFragment : Fragment() {
             holder.points.text = "${item.pointValue} Pts"
 
             holder.card.setOnClickListener {
-                listener?.onChildChoresFragmentInteractionListener(item, false)
-            }
-
-            holder.card.setOnLongClickListener {
-                listener?.onChildChoresFragmentInteractionListener(item, true)
-                viewModel.deleteChore(item)
-                true
+                listener?.onChildChoresFragmentInteractionListener(item)
             }
         }
 

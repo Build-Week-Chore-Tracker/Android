@@ -8,17 +8,17 @@
     tools:context=".activity.LoginActivity">
 
     <ProgressBar
-        android:layout_marginTop="4dp"
         android:id="@+id/pb_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:layout_marginTop="4dp"
+        android:visibility="invisible" />
 
     <FrameLayout
         android:id="@+id/registration_fragment_holder"
-        android:layout_margin="32dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="32dp" />
 
     <LinearLayout
         android:id="@+id/ll_login"
@@ -29,9 +29,9 @@
         android:orientation="vertical">
 
         <Space
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/et_login_username"
@@ -54,26 +54,35 @@
             android:layout_height="32dp" />
 
         <Button
-            style="@style/ButtonStyles"
             android:id="@+id/btn_login"
+            style="@style/ButtonStyles"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:text="Login"
             android:textSize="24sp" />
 
         <Space
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
-            android:textColor="@color/secondaryColor"
+            android:id="@+id/btn_login_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:text="Child Login"
             android:textAllCaps="false"
+            android:textColor="@color/primaryTextColor" />
+
+        <Button
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="Register Here"
+            android:textAllCaps="false"
+            android:textColor="@color/secondaryColor"
             android:textSize="14sp" />
 
     </LinearLayout>

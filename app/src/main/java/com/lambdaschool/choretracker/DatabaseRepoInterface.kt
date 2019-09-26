@@ -2,6 +2,7 @@ package com.lambdaschool.choretracker
 
 import androidx.lifecycle.LiveData
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.CredentialsAPI
 
@@ -20,6 +21,13 @@ interface DatabaseRepoInterface {
     fun getAllChildForParentId(parentId: Int): LiveData<List<Child>>
     fun updateChild(child: Child)
     fun deleteChild(child: Child)
+
+    // ChildLoginCredential table
+    fun createChildLoginCredential(childCreds: ChildLoginCredential)
+    fun getChildLoginCredentialForUsernamePassword(username: String, password: String):
+            LiveData<ChildLoginCredential>
+    fun updateChildLoginCredential(childCreds: ChildLoginCredential)
+    fun deleteChildLoginCredential(childCreds: ChildLoginCredential)
 
     // ChoreTrackerAPI
     fun registerUser(creds: CredentialsAPI): LiveData<Boolean>

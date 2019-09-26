@@ -116,6 +116,26 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         DeleteChildAsyncTask(database.databaseDao()).execute(child)
     }
 
+    // ChildLoginCredential
+    override fun createChildLoginCredential(childCreds: ChildLoginCredential) {
+        CreateChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
+    }
+
+    override fun getChildLoginCredentialForUsernamePassword(username: String, password: String):
+            LiveData<ChildLoginCredential> {
+        return database.databaseDao().getChildLoginCredentialForUsernamePassword(username, password)
+    }
+
+    override fun updateChildLoginCredential(childCreds: ChildLoginCredential) {
+        UpdateChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
+    }
+
+    override fun deleteChildLoginCredential(childCreds: ChildLoginCredential) {
+        DeleteChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
+    }
+
+
+
     private val database by lazy {
         Room.databaseBuilder(
             context,
@@ -177,6 +197,36 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
             override fun doInBackground(vararg child: Child?) {
                 child[0]?.let {
                     dbDao.deleteChild(it)
+                }
+            }
+        }
+
+        class CreateChildLoginCredentialAsyncTask(val dbDao: DatabaseDAO) :
+            AsyncTask<ChildLoginCredential, Unit, Unit>() {
+
+            override fun doInBackground(vararg childCreds: ChildLoginCredential?) {
+                childCreds[0]?.let {
+                    dbDao.createChildLoginCredential(it)
+                }
+            }
+        }
+
+        class UpdateChildLoginCredentialAsyncTask(val dbDao: DatabaseDAO) :
+            AsyncTask<ChildLoginCredential, Unit, Unit>() {
+
+            override fun doInBackground(vararg childCreds: ChildLoginCredential?) {
+                childCreds[0]?.let {
+                    dbDao.updateChildLoginCredential(it)
+                }
+            }
+        }
+
+        class DeleteChildLoginCredentialAsyncTask(val dbDao: DatabaseDAO) :
+            AsyncTask<ChildLoginCredential, Unit, Unit>() {
+
+            override fun doInBackground(vararg childCreds: ChildLoginCredential?) {
+                childCreds[0]?.let {
+                    dbDao.deleteChildLoginCredential(it)
                 }
             }
         }

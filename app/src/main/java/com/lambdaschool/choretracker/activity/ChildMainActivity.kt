@@ -1,5 +1,6 @@
 package com.lambdaschool.choretracker.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,12 +24,9 @@ class ChildMainActivity : AppCompatActivity(),
 
     }
 
-    override fun onChildChoresFragmentInteractionListener(chore: Chore, longPress: Boolean) {
-        if (!longPress) {
-            Toast.makeText(this, "${chore.title} was clicked. Position: ${chore.chore_id}", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "${chore.title} was LONGPRESSED", Toast.LENGTH_SHORT).show()
-        }
+    override fun onChildChoresFragmentInteractionListener(chore: Chore) {
+        val intent = Intent(this, ChildChoreDetialActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onChildPointsFragmentInteractionListener() {
