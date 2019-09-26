@@ -95,28 +95,32 @@ class LoginActivity : AppCompatActivity(),
             val logUserName = et_login_username.text.toString()
             val logPassword = et_login_password.text.toString()
             var childId = -1
+            var childLoginClicked = true
 
-            viewModel.createChildLoginCredential(ChildLoginCredential(logUserName, logPassword))
+            //viewModel.createChildLoginCredential(ChildLoginCredential(logUserName, logPassword))
 
-            val item = viewModel.getChildLoginCredentialForUsernamePassword(logUserName, logPassword)
-            val a = item.value?.username
-            val b = item.value?.password
-            val c = item.value?.child_id
+            viewModel.getChildLoginCredentialForUsernamePassword(logUserName, logPassword).observe(this, Observer {
+                if (it != null) {
+                    if (childLoginClicked) {
 
-            if (item.value?.username == logUserName && item.value?.password == logPassword) {
-                item.value?.child_id?.let {
-                    childId = it
+                        childLoginClicked = false
+                        val uName = it.username
+                        val pass = it.password
+                        val childID = it.child_id
+
+                        prefs?.deleteLoginCredentials()
+                        prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "", childId))
+
+                        val intent = Intent(this, ChildMainActivity::class.java)
+                        startActivity(intent)
+                    }
+                } else {
+                    if (childLoginClicked) {
+                        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+                        childLoginClicked = false
+                    }
                 }
-
-                prefs?.deleteLoginCredentials()
-                prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "", childId))
-                val intent = Intent(this, ChildMainActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
-            }
-
-
+            })
         }
     }
 

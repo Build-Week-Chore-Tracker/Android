@@ -17,17 +17,19 @@ import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragmen
 import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
 import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.viewmodel.ParentMainActivityViewModel
 
 class ParentMainActivity : AppCompatActivity(),
-ChildrenFragment.OnParentChildrenListFragmentInteractionListener,
-HomeFragment.OnParentChoresFragmentInteractionListener,
-NotificationsFragment.OnStoreFragmentInteractionListener{
+    ChildrenFragment.OnParentChildrenListFragmentInteractionListener,
+    HomeFragment.OnParentChoresFragmentInteractionListener,
+    NotificationsFragment.OnStoreFragmentInteractionListener {
 
     companion object {
         const val CHILD_REQUEST_CODE = 77
         const val CHORE_REQUEST_CODE = 65
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
+        const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
     }
 
     private lateinit var parentViewModel: ParentMainActivityViewModel
@@ -67,9 +69,7 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        parentViewModel =  ViewModelProviders.of(this).get(ParentMainActivityViewModel::class.java)
-
-
+        parentViewModel = ViewModelProviders.of(this).get(ParentMainActivityViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -90,7 +90,11 @@ NotificationsFragment.OnStoreFragmentInteractionListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val child = data?.getSerializableExtra(CHILD_REQUEST_KEY) as Child
+            val childCreds =
+                data.getSerializableExtra(CHILD_CREDENTIALS_REQUEST_KEY) as ChildLoginCredential
+
             parentViewModel.createChild(child)
+            parentViewModel.createChildLoginCredential(childCreds)
         }
     }
 }

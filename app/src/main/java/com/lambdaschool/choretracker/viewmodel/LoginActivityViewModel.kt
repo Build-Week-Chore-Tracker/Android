@@ -13,7 +13,4 @@ class LoginActivityViewModel: ViewModel() {
     fun getChildLoginCredentialForUsernamePassword(username: String, password: String):
             LiveData<ChildLoginCredential> =
         repo.getChildLoginCredentialForUsernamePassword(username, password)
-
-    fun createChildLoginCredential(childCreds: ChildLoginCredential) =
-        repo.createChildLoginCredential(childCreds)
 }

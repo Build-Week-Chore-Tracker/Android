@@ -8,10 +8,11 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.core.view.get
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_CREDENTIALS_REQUEST_KEY
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import kotlinx.android.synthetic.main.activity_add_child.*
 
 class AddChildActivity : AppCompatActivity() {
@@ -50,8 +51,11 @@ class AddChildActivity : AppCompatActivity() {
                 Toast.makeText(this, "Make sure Name, Username and password are not blank", Toast.LENGTH_SHORT).show()
             } else {
                 val child = Child(name, childColor, 0, "", 0)
+                val childCreds = ChildLoginCredential(userName, password)
+
                 val intent = Intent()
                 intent.putExtra(CHILD_REQUEST_KEY, child)
+                intent.putExtra(CHILD_CREDENTIALS_REQUEST_KEY, childCreds)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
