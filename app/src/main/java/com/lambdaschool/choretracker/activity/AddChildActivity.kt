@@ -13,9 +13,13 @@ import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
+import com.lambdaschool.choretracker.util.Prefs
+import com.lambdaschool.choretracker.util.prefs
 import kotlinx.android.synthetic.main.activity_add_child.*
 
 class AddChildActivity : AppCompatActivity() {
+
+    var prefs: Prefs? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +36,14 @@ class AddChildActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save_child_menu) {
             //TODO pass data back to child fragment
-            val name = et_add_child_child_name.text.toString()
+            val loginCreds = prefs?.getLoginCredentials()
+            var userId = -1
+
+            loginCreds?.user?.let {
+                userId = it
+            }
+
+            val name = et_add_child_child_name.text.toString().capitalize()
             val userName = et_add_child_username.text.toString()
             val password = et_add_child_password.text.toString()
             val childColor = when {
@@ -50,7 +61,9 @@ class AddChildActivity : AppCompatActivity() {
             if (name == "" || userName == "" || password == "") {
                 Toast.makeText(this, "Make sure Name, Username and password are not blank", Toast.LENGTH_SHORT).show()
             } else {
-                val child = Child(name, childColor, 0, 0, "", 0)
+              
+                val child = Child(name, childColor, 0, 0, "", userId)
+
                 val childCreds = ChildLoginCredential(userName, password)
 
                 val intent = Intent()

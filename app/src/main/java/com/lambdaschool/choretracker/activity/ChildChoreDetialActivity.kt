@@ -19,6 +19,7 @@ import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.viewmodel.ChildChoreDetailActivityViewModel
 import java.io.File
 import java.text.SimpleDateFormat
@@ -38,7 +39,7 @@ class ChildChoreDetialActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.lambdaschool.choretracker.R.layout.activity_child_chore_detial)
+        setContentView(R.layout.activity_child_chore_detial)
 
         viewModel = ViewModelProviders.of(this).get(ChildChoreDetailActivityViewModel::class.java)
 
