@@ -24,7 +24,7 @@ class Prefs(context: Context) {
         editor.apply()
     }
 
-    fun readLoginCredentials(): LoginReturnedAPI? {
+    fun getLoginCredentials(): LoginReturnedAPI? {
         var token = INVALID_STRING
         sharedPrefs.getString(LOGIN_TOKEN_KEY, INVALID_STRING)?.let {
             token = it

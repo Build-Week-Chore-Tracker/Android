@@ -1,40 +1,22 @@
 package com.lambdaschool.choretracker.activity.ui_child.chores
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
-import com.lambdaschool.choretracker.activity.ChildMainActivity
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
-import kotlinx.android.synthetic.main.fragment_chores_child.*
-import kotlinx.android.synthetic.main.fragment_registration.*
-import lecho.lib.hellocharts.view.PieChartView
 
 class ChildChoresFragment : Fragment() {
 
@@ -51,7 +33,7 @@ class ChildChoresFragment : Fragment() {
         childChoresViewModel =
             ViewModelProviders.of(this).get(ChildChoresViewModel::class.java)
 
-        val loginCreds = prefs?.readLoginCredentials()
+        val loginCreds = prefs?.getLoginCredentials()
         var userId = -1
 
         loginCreds?.user?.let {

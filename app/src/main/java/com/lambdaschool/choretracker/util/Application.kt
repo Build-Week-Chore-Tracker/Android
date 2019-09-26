@@ -1,8 +1,7 @@
-package com.lambdaschool.choretracker
+package com.lambdaschool.choretracker.util
 
 import android.app.Application
 import com.lambdaschool.choretracker.database.DatabaseRepo
-import com.lambdaschool.choretracker.util.Prefs
 
 val repo by lazy {
 

@@ -5,9 +5,9 @@ import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
-import com.lambdaschool.choretracker.DatabaseRepoInterface
+import com.lambdaschool.choretracker.util.DatabaseRepoInterface
 import com.lambdaschool.choretracker.model.*
-import com.lambdaschool.choretracker.prefs
+import com.lambdaschool.choretracker.util.prefs
 import com.lambdaschool.choretracker.retrofit.ChoreTrackerAPI
 import com.lambdaschool.choretracker.util.Prefs
 import retrofit2.Call
@@ -73,7 +73,7 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         return loginSuccessful
     }
 
-    // Chore table
+    // Table: chore_table
     override fun createChore(chore: Chore) {
         CreateChoreAsyncTask(database.databaseDao()).execute(chore)
     }
@@ -99,7 +99,8 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         DeleteChoreAsyncTask(database.databaseDao()).execute(chore)
     }
 
-    // Child table
+
+    // Table: child_table
     override fun createChild(child: Child) {
         CreateChildAsyncTask(database.databaseDao()).execute(child)
     }
@@ -116,7 +117,8 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         DeleteChildAsyncTask(database.databaseDao()).execute(child)
     }
 
-    // ChildLoginCredential
+
+    // Table: child_login_credential
     override fun createChildLoginCredential(childCreds: ChildLoginCredential) {
         CreateChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
     }
@@ -139,7 +141,7 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
     private val database by lazy {
         Room.databaseBuilder(
             context,
-            database::class.java,
+            Database::class.java,
             "chore_database"
         ).fallbackToDestructiveMigration()
             .build()
