@@ -14,16 +14,15 @@ import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.util.Prefs
-import com.lambdaschool.choretracker.util.prefs
-import kotlinx.android.synthetic.main.activity_add_child.*
+import kotlinx.android.synthetic.main.activity_parent_add_child.*
 
-class AddChildActivity : AppCompatActivity() {
+class ParentAddChildActivity : AppCompatActivity() {
 
     var prefs: Prefs? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_child)
+        setContentView(R.layout.activity_parent_add_child)
 
     }
 

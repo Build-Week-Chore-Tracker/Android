@@ -15,10 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ChoreDetailActivity"></activity>
+        <activity android:name=".activity.ParentStandardChoreListActivity"></activity>
         <activity android:name=".activity.ChildChoreDetialActivity" />
-        <activity android:name=".activity.ChildDetailActivity" />
-        <activity android:name=".activity.AddChildActivity" />
+        <activity android:name=".activity.ParentChildDetailActivity" />
+        <activity android:name=".activity.ParentAddChildActivity" />
         <activity android:name=".activity.ParentChoreDetailActivity" />
         <activity
             android:name=".activity.ChildMainActivity"

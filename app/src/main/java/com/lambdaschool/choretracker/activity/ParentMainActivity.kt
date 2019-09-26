@@ -36,14 +36,14 @@ class ParentMainActivity : AppCompatActivity(),
 
 
     override fun onParentChildrenListFragmentInteractionListener(child: Child) {
-        val intent = Intent(this, ChildDetailActivity::class.java)
+        val intent = Intent(this, ParentChildDetailActivity::class.java)
         intent.putExtra(CHILD_REQUEST_KEY, child)
         startActivity(intent)
     }
 
     override fun onParentChoresFragmentInteractionListener(intentKey: Int) {
         if (intentKey == 777) {
-            val intent = Intent(this, ChoreDetailActivity::class.java)
+            val intent = Intent(this, ParentStandardChoreListActivity::class.java)
             startActivityForResult(intent, CHORE_REQUEST_CODE)
         }
 
@@ -80,7 +80,7 @@ class ParentMainActivity : AppCompatActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_child) {
-            val intent = Intent(this, AddChildActivity::class.java)
+            val intent = Intent(this, ParentAddChildActivity::class.java)
             startActivityForResult(intent, CHILD_REQUEST_CODE)
         }
         return true

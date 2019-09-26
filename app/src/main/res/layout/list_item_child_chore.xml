@@ -6,7 +6,7 @@
     android:id="@+id/rv_child_chore_list"
     app:layoutManager="LinearLayoutManager"
     android:layout_width="match_parent"
-    tools:listitem="@layout/child_chore_item"
+    tools:listitem="@layout/item_child_chore"
     android:layout_height="match_parent">
 
 </androidx.recyclerview.widget.RecyclerView>
