@@ -9,7 +9,7 @@ import com.lambdaschool.choretracker.model.Chore
 @Dao
 interface DatabaseDAO {
 
-    // Chore table
+    // Table chore_table
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createChore(chore: Chore)
 
@@ -28,7 +28,7 @@ interface DatabaseDAO {
     @Delete
     fun deleteChore(chore: Chore)
 
-    // Child table
+    // Table: child_table
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createChild(child: Child)
 
@@ -41,7 +41,7 @@ interface DatabaseDAO {
     @Delete
     fun deleteChild(child: Child)
 
-    // ChildLoginCredential table
+    // Table: child_login_credential
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createChildLoginCredential(childCreds: ChildLoginCredential)
 

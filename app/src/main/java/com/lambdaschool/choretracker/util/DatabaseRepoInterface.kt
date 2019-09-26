@@ -1,4 +1,4 @@
-package com.lambdaschool.choretracker
+package com.lambdaschool.choretracker.util
 
 import androidx.lifecycle.LiveData
 import com.lambdaschool.choretracker.model.Child

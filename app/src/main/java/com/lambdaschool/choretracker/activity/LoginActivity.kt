@@ -1,6 +1,5 @@
 package com.lambdaschool.choretracker.activity
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.fragment.RegistrationFragment
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.model.LoginReturnedAPI
 import com.lambdaschool.choretracker.util.Prefs
@@ -55,16 +55,15 @@ class LoginActivity : AppCompatActivity(),
 
         btn_login.setOnClickListener {
 
-            pb_login.visibility = View.VISIBLE
-
             val logUserName = et_login_username.text.toString()
             val logPassword = et_login_password.text.toString()
 
             if (logUserName.isNotEmpty() && logPassword.isNotEmpty()) {
+                pb_login.visibility = View.VISIBLE
                 viewModel.loginUser(CredentialsAPI("", logUserName, "", logPassword))
                     .observe(this, Observer {
                         if (it) {
-                            val loginCreds = prefs?.readLoginCredentials()
+                            val loginCreds = prefs?.getLoginCredentials()
                             pb_login.visibility = View.INVISIBLE
                             Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
 
@@ -74,6 +73,8 @@ class LoginActivity : AppCompatActivity(),
                             Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
                         }
                     })
+            } else {
+                Toast.makeText(this, "Please enter a username & password", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -95,12 +96,19 @@ class LoginActivity : AppCompatActivity(),
             val logPassword = et_login_password.text.toString()
             var childId = -1
 
+            viewModel.createChildLoginCredential(ChildLoginCredential(logUserName, logPassword))
+
             val item = viewModel.getChildLoginCredentialForUsernamePassword(logUserName, logPassword)
+            val a = item.value?.username
+            val b = item.value?.password
+            val c = item.value?.child_id
+
             if (item.value?.username == logUserName && item.value?.password == logPassword) {
                 item.value?.child_id?.let {
                     childId = it
                 }
 
+                prefs?.deleteLoginCredentials()
                 prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "", childId))
                 val intent = Intent(this, ChildMainActivity::class.java)
                 startActivity(intent)

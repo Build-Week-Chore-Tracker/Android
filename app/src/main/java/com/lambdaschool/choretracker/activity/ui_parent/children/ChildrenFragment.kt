@@ -1,7 +1,6 @@
 package com.lambdaschool.choretracker.activity.ui_parent.children
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
-import com.lambdaschool.choretracker.model.LoginReturnedAPI
 import com.lambdaschool.choretracker.util.Prefs
 import kotlinx.android.synthetic.main.parent_child_item.view.*
 import kotlinx.android.synthetic.main.parent_child_list.*
@@ -43,14 +41,14 @@ class ChildrenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loginCreds = prefs?.readLoginCredentials()
+        val loginCreds = prefs?.getLoginCredentials()
         var userId = -1
 
         loginCreds?.user?.let {
             userId = it
         }
 
-        childrenViewModel.getAllChild(userId).observe(this, Observer {
+        childrenViewModel.getAllChildForParentId(userId).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, child ->
                     if (index == 0) {
