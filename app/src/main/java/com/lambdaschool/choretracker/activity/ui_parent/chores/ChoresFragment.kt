@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
+import kotlinx.android.synthetic.main.fragment_chores_parent.*
 
 class HomeFragment : Fragment() {
 
@@ -31,6 +32,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fab_add_chore.setOnClickListener {
+
+        }
 
     }
 
