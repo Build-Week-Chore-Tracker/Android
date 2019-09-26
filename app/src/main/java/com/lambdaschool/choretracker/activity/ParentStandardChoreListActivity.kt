@@ -16,6 +16,10 @@ class ParentStandardChoreListActivity : AppCompatActivity() {
 
     private lateinit var parentStandardChoreListViewModel: ParentStandardChoreListActivityViewModel
 
+    companion object {
+        const val CUSTOM_CHORE_REQUEST_CODE = 289
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_standard_chore_list)

@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.ParentStandardChoreListActivity"></activity>
+        <activity android:name=".activity.CreateChore"></activity>
         <activity android:name=".activity.ChildChoreDetialActivity" />
         <activity android:name=".activity.ParentChildDetailActivity" />
         <activity android:name=".activity.ParentAddChildActivity" />
