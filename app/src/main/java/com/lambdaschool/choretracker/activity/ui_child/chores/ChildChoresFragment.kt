@@ -1,6 +1,7 @@
 package com.lambdaschool.choretracker.activity.ui_child.chores
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,6 @@ import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
 import kotlinx.android.synthetic.main.child_chore_item.view.*
 import kotlinx.android.synthetic.main.child_chore_item_list.*
-import kotlin.math.absoluteValue
 
 class ChildChoresFragment : Fragment() {
 
@@ -113,6 +113,9 @@ class ChildChoresFragment : Fragment() {
 
             holder.name.text = item.title
             holder.points.text = "${item.pointValue} Pts"
+            if (item.childCompleted) {
+                holder.card.setCardBackgroundColor(Color.GREEN)
+            }
 
             holder.card.setOnClickListener {
                 listener?.onChildChoresFragmentInteractionListener(item)
