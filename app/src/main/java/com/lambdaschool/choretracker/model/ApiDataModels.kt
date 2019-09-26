@@ -10,14 +10,19 @@ object ListChildAPI {
     val listChildAPI = mutableListOf<ChildAPI>()
 }
 
-class RegisterAPI(
+data class RegistrationReturnedAPI(
+    val message: String,
+    val id: Int
+)
+
+class CredentialsAPI(
     val name: String,
     val username: String,
     val email: String,
     val password: String
 )
 
-data class LoginAuthAPI (
+data class LoginReturnedAPI (
     val message: String,
     val token: String,
     val user: Int
