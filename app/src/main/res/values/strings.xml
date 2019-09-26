@@ -18,6 +18,8 @@
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="choose_child_color">Choose child color</string>
+    <string name="chore_streak">Chore Streak:</string>
+    <string name="points">Points:</string>
     <string-array name="colors">
         <item>Red</item>
         <item>Blue</item>
