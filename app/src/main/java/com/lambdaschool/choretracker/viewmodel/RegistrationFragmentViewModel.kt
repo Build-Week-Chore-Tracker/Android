@@ -1,6 +1,5 @@
 package com.lambdaschool.choretracker.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.repo
