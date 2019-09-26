@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.fragment.RegistrationFragment
 import com.lambdaschool.choretracker.model.CredentialsAPI
+import com.lambdaschool.choretracker.model.LoginReturnedAPI
 import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.util.openSoftKeyboard
 import com.lambdaschool.choretracker.viewmodel.LoginActivityViewModel
@@ -85,6 +87,29 @@ class LoginActivity : AppCompatActivity(),
                 .addToBackStack(null)
                 .commit()
         }
+
+        btn_login_child.setOnClickListener {
+
+            simulateNetworkCall()
+            val logUserName = et_login_username.text.toString()
+            val logPassword = et_login_password.text.toString()
+            var childId = -1
+
+            val item = viewModel.getChildLoginCredentialForUsernamePassword(logUserName, logPassword)
+            if (item.value?.username == logUserName && item.value?.password == logPassword) {
+                item.value?.child_id?.let {
+                    childId = it
+                }
+
+                prefs?.createLoginCredentialEntry(LoginReturnedAPI("", "", childId))
+                val intent = Intent(this, ChildMainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
     }
 
     override fun onBackPressed() {
@@ -97,21 +122,19 @@ class LoginActivity : AppCompatActivity(),
         }
     }
 
+    private fun simulateNetworkCall() {
+        pb_login.visibility = View.VISIBLE
+        val handler = Handler()
+        handler.postDelayed({
+            pb_login.visibility = View.INVISIBLE
+        }, 1500)
+    }
+
     private fun getBackStackCount(): Int {
         return supportFragmentManager.backStackEntryCount
     }
 
     private fun getRegistrationFragmentByTag(): RegistrationFragment {
         return supportFragmentManager.findFragmentByTag(FRAG_TAG_REGISTRATION) as RegistrationFragment
-    }
-
-    private fun loginUserType(context: Context, isParent: Boolean) {
-        var intent = Intent()
-        if (isParent) {
-            intent = Intent(context, ParentMainActivity::class.java)
-        } else {
-            intent = Intent(context, ChildMainActivity::class.java)
-        }
-        startActivity(intent)
     }
 }

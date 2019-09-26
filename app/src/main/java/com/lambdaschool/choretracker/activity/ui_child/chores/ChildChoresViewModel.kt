@@ -7,19 +7,7 @@ import com.lambdaschool.choretracker.repo
 
 class ChildChoresViewModel : ViewModel() {
 
-    val entries: LiveData<List<Chore>> by lazy {
-        getAllChores()
-    }
-
-    fun getAllChores() : LiveData<List<Chore>> {
-        return repo.getAllChores()
-    }
-
-    fun createChore(chore: Chore) {
-        repo.createChore(chore)
-    }
-
-    fun deleteChore(chore: Chore) {
-        repo.deleteChore(chore)
+    fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>> {
+        return repo.getAllChoresForChildId(childId)
     }
 }
