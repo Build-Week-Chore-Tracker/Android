@@ -4,7 +4,8 @@
     android:id="@+id/cardview_parent_child_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="15dp"
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:id="@+id/linear_layout_parent_child_item"
