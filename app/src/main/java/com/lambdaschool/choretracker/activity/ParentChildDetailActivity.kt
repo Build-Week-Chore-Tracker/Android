@@ -7,13 +7,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
+import com.lambdaschool.choretracker.adapter.ParentChildDetailChoreListAdapter
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChoreList
+import com.lambdaschool.choretracker.util.Prefs
+import com.lambdaschool.choretracker.util.repo
 import com.lambdaschool.choretracker.viewmodel.ParentChildDetailActivityViewModel
 import kotlinx.android.synthetic.main.activity_parent_child_detail.*
 
 class ParentChildDetailActivity : AppCompatActivity() {
 
     private lateinit var parentChildDetailActivityViewModel: ParentChildDetailActivityViewModel
+    var prefs: Prefs? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +26,14 @@ class ParentChildDetailActivity : AppCompatActivity() {
 
         val intent = intent.getSerializableExtra(CHILD_REQUEST_KEY) as Child
         tv_child_detail_name.text = intent.name
+
+        prefs = Prefs(this)
+
+        var userId = -1
+
+        prefs?.getLoginCredentials()?.let {
+            userId = it.user
+        }
 
         parentChildDetailActivityViewModel =
             ViewModelProviders.of(this).get(ParentChildDetailActivityViewModel::class.java)
@@ -30,24 +43,24 @@ class ParentChildDetailActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        val adapter =
+        val adapter = ParentChildDetailChoreListAdapter(ChoreList.choreList)
         recyclerView.adapter = adapter
 
-        parentChildDetailActivityViewModel.getChildChores().observe(this, Observer {
+        parentChildDetailActivityViewModel.getChildChores(userId).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
-//                        StandardChoreList.standardChoreList.clear()
+                        ChoreList.choreList.clear()
                     }
 
-//                    StandardChoreList.standardChoreList.add(t)
+                    ChoreList.choreList.add(t)
 
                     if (index == it.size - 1) {
                         adapter.notifyDataSetChanged()
                     }
                 }
             } else {
-//                ChoreList.choreList.clear()
+                ChoreList.choreList.clear()
                 adapter.notifyDataSetChanged()
             }
         })
