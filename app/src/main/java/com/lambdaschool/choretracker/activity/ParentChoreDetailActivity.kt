@@ -65,22 +65,24 @@ class ParentChoreDetailActivity : AppCompatActivity() {
 
         parentChoreDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
             if (it != null) {
-                it.forEachIndexed { index, t ->
-                    if (index == 0) {
-                        children.clear()
-                        addClickToRegisterChildToMList()
+                if (it.isNotEmpty()) {
+                    it.forEachIndexed { index, t ->
+                        if (index == 0) {
+                            children.clear()
+                            addClickToRegisterChildToMList()
+                        }
+                        children.add(t)
+                        if (index == it.size - 1 && !choreIsBeingEdited) {
+                            setPointerForChild(children[1].child_id)
+                        } else if (index == it.size - 1 && choreIsBeingEdited) {
+                            setPointerForChild(data?.child_id)
+                        }
                     }
-                    children.add(t)
-                    if (index == it.size - 1 && !choreIsBeingEdited) {
-                        setPointerForChild(children[1].child_id)
-                    } else if (index == it.size - 1 && choreIsBeingEdited) {
-                        setPointerForChild(data?.child_id)
-                    }
+                } else {
+                    children.clear()
+                    addClickToRegisterChildToMList()
+                    btn_parent_chore_detail_select_child.text = children[0].name
                 }
-            } else {
-                children.clear()
-                addClickToRegisterChildToMList()
-                btn_parent_chore_detail_select_child.text = children[0].name
             }
         })
 
