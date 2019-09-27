@@ -55,7 +55,7 @@
 
         <Button
             android:id="@+id/btn_login"
-            style="@style/ButtonStyles"
+            style="@style/ButtonStylesPrimaryColor"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:text="Login"
