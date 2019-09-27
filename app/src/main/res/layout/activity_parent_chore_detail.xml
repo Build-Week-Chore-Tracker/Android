@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,15 +7,17 @@
     android:orientation="vertical"
     tools:context=".activity.ParentChoreDetailActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_parent_chore_detail_header"
@@ -27,8 +29,10 @@
             android:textStyle="bold" />
 
         <ScrollView
+            android:id="@+id/sv_parent_chore_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:fadeScrollbars="false">
 
             <LinearLayout
@@ -37,68 +41,68 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:layout_marginEnd="8dp"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_marginTop="11dp"
-                        android:layout_marginBottom="11dp"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chore Name:"
-                        android:textSize="18sp" />
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_marginTop="11dp"
-                        android:layout_marginBottom="11dp"
-                        android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginBottom="11dp"
+                            android:text="Chore Name:"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginBottom="11dp"
+                            android:text="Set Points:"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginBottom="11dp"
+                            android:text="Description:"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Set Points:"
-                        android:textSize="18sp" />
+                        android:layout_weight="2.5"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_marginTop="11dp"
-                        android:layout_marginBottom="11dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Description:"
-                        android:textSize="18sp" />
+                        <EditText
+                            android:id="@+id/et_parent_chore_detail_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:singleLine="true" />
 
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/et_parent_chore_detail_points"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
 
-            <LinearLayout
-                android:layout_weight="2.5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/et_parent_chore_detail_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
 
-                <EditText
-                    android:id="@+id/et_parent_chore_detail_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:singleLine="true" />
-
-                <EditText
-                    android:id="@+id/et_parent_chore_detail_points"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-                <EditText
-                    android:id="@+id/et_parent_chore_detail_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -122,8 +126,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:background="@color/secondaryLightLightColor"
-                        android:clickable="false"
-                        android:text="Child Name"
+                        android:text="Set programatically"
                         android:textAllCaps="false"
                         android:textSize="20sp" />
 
@@ -148,53 +151,88 @@
 
         </ScrollView>
 
+        <LinearLayout
+            android:id="@+id/ll_parent_chore_detail_completion_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_parent_chore_detail_approve"
+                style="@style/ButtonStylesSecondaryColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:text="Approve"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/btn_parent_chore_detail_deny"
+                style="@style/ButtonStylesSecondaryColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:padding="15dp"
+                android:text="Deny"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_parent_chore_detail_completion_buttons"
-        android:layout_width="match_parent"
+        android:id="@+id/ll_parent_chore_detail_save_delete_fabs"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btn_parent_chore_detail_approve"
-            style="@style/ButtonStylesSecondaryColor"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_parent_chore_detail_delete_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:text="Approve"
-            android:textSize="24sp" />
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <Button
-            android:id="@+id/btn_parent_chore_detail_deny"
-            style="@style/ButtonStylesSecondaryColor"
-            android:layout_width="0dp"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_delete_chore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:src="@android:drawable/ic_menu_delete" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_parent_chore_detail_save_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:padding="15dp"
-            android:text="Deny"
-            android:textSize="24sp" />
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_save_chore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@android:drawable/ic_menu_save" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_parent_chore_detail_delete"
-        style="@style/ButtonStylesSecondaryColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:padding="15dp"
-        android:text="Delete"
-        android:textSize="24sp"
-        android:visibility="gone" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
