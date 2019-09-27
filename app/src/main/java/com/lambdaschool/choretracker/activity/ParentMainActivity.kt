@@ -29,6 +29,8 @@ class ParentMainActivity : AppCompatActivity(),
         const val CHILD_REQUEST_CODE = 77
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
         const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
+        const val EDIT_CHORE_DETAIL_KEY = "LJAHS0FIHPQIWEHFISF"
+        const val EDIT_CHORE_DETAIL_CODE = 8721
     }
 
     private lateinit var parentViewModel: ParentMainActivityViewModel
