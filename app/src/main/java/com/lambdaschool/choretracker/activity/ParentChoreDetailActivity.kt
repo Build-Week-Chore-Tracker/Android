@@ -115,39 +115,57 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         }
 
         fab_delete_chore.setOnClickListener {
-
-            val intent = Intent()
-            intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
-            intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, data)
-            intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, false)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            deleteChoreIntent(data)
         }
 
         fab_save_chore.setOnClickListener {
             if (pointer != 0) {
-
-                val choreItem = choreBuilder()
-
-                val intent = Intent()
-                intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
-                intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, choreItem)
-                intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, true)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                updateChoreIntent(choreBuilder())
             } else {
                 Toast.makeText(this, "Please select a child", Toast.LENGTH_SHORT).show()
             }
         }
 
         btn_parent_chore_detail_approve.setOnClickListener {
+            val childToUpdate = children[pointer]
 
+            var pointsToAdd = 5
+
+            data?.let {
+                pointsToAdd = it.pointValue
+            }
+
+            childToUpdate.earnedPoints += pointsToAdd
+            parentChoreDetailActivityViewModel.updateChild(childToUpdate)
+
+            deleteChoreIntent(data)
         }
 
         btn_parent_chore_detail_deny.setOnClickListener {
-
+            data?.childCompleted = false
+            updateChoreIntent(data)
         }
 
+    }
+
+    private fun updateChoreIntent(chore: Chore?) {
+        val intent = Intent()
+        intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
+        intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, chore)
+        intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, true)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
+    private fun deleteChoreIntent(chore: Chore?) {
+        if (chore != null) {
+            val intent = Intent()
+            intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
+            intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, chore)
+            intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, false)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
     }
 
     private fun choreBuilder(): Chore {
@@ -188,12 +206,16 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     }
 
     private fun setChoreDescription(string: String?) {
-        et_parent_chore_detail_description.setText(string)
+        if (string != "Create your own chore") {
+            et_parent_chore_detail_description.setText(string)
+        }
     }
 
     private fun isCompleteButtonsVisibility(isComplete: Boolean?) {
         if (isComplete != null) {
             if (isComplete) {
+                ib_parent_chore_detail_next.isEnabled = false
+                ib_parent_chore_detail_previous.isEnabled = false
                 ll_parent_chore_detail_completion_buttons.visibility = View.VISIBLE
                 ll_parent_chore_detail_save_delete_fabs.visibility = View.GONE
             }
