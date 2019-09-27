@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.activity.ParentMainActivity
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
 import com.lambdaschool.choretracker.util.Prefs
+import kotlinx.android.synthetic.main.fragment_dashboard_parent.*
 import kotlinx.android.synthetic.main.item_parent_child.view.*
 import kotlinx.android.synthetic.main.list_item_parent_child.*
 import lecho.lib.hellocharts.view.PieChartView
@@ -73,6 +75,18 @@ class ChildrenFragment : Fragment() {
             }
         })
         setupRecyclerView(recyclerview_children)
+
+        fab_add_child.setOnClickListener {
+            listenerParent?.onParentChildrenListFragmentInteractionListener(
+                Child(
+                    ParentMainActivity.ADD_CHILD_KEY,
+                    "",
+                    0,
+                    0,
+                    "",
+                    -1
+                ))
+        }
 
     }
 

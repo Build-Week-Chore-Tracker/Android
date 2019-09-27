@@ -1,12 +1,16 @@
 package com.lambdaschool.choretracker.activity
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.viewmodel.ParentChoreDetailActivityViewModel
@@ -19,6 +23,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     var prefs: Prefs? = null
     val children = mutableListOf<Child>()
     var pointer = 0
+    var choreIsBeingEdited = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +31,8 @@ class ParentChoreDetailActivity : AppCompatActivity() {
 
         prefs = Prefs(this)
         parentChoreDetailActivityViewModel = ViewModelProviders.of(this).get(
-            ParentChoreDetailActivityViewModel::class.java)
+            ParentChoreDetailActivityViewModel::class.java
+        )
 
         val loginCreds = prefs?.getLoginCredentials()
         var userId = -1
@@ -35,55 +41,123 @@ class ParentChoreDetailActivity : AppCompatActivity() {
             userId = it
         }
 
-        parentChoreDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
-            if (it.isNotEmpty()) {
-                it.forEachIndexed { index, t ->
-                    if (index == 0) {
-                        children.clear()
-                    }
-                    children.add(t)
-                }
-            } else {
-                children.clear()
-                val string = "No Children"
-                btn_parent_chore_detail_select_child.text = string
-            }
-        })
-
         if (intent.getSerializableExtra(
-                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) != null) {
+                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY
+            ) != null
+        ) {
 
             data = intent.getSerializableExtra(
-                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
+                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY
+            ) as Chore
 
             setHeader("Create Chore")
 
         } else if (intent.getSerializableExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY) != null) {
+            choreIsBeingEdited = true
 
             data = intent.getSerializableExtra(
                 ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY
             ) as Chore
 
             setHeader("Edit Chore")
-            deletionButtonVisibility(data?.childCompleted)
             setPointerForChild(data?.child_id)
         }
 
+        parentChoreDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
+            if (it != null) {
+                it.forEachIndexed { index, t ->
+                    if (index == 0) {
+                        children.clear()
+                        addClickToRegisterChildToMList()
+                    }
+                    children.add(t)
+                    if (index == it.size - 1 && !choreIsBeingEdited) {
+                        setPointerForChild(children[1].child_id)
+                    }
+                }
+            } else {
+                children.clear()
+                addClickToRegisterChildToMList()
+                btn_parent_chore_detail_select_child.text = children[0].name
+            }
+        })
 
         setChoreName(data?.title)
         setChorePoints(data?.pointValue)
-        setChoreDetail(data?.description)
-        approvalButtonsVisibility(data?.childCompleted)
+        setChoreDescription(data?.description)
+        //deletionButtonVisibility(choreIsBeingEdited)
+        isCompleteButtonsVisibility(data?.childCompleted)
+
+        btn_parent_chore_detail_select_child.setOnClickListener {
+            if (btn_parent_chore_detail_select_child.text == children[0].name) {
+
+                val intent = Intent(this, ParentAddChildActivity::class.java)
+                startActivityForResult(intent, ParentMainActivity.CHILD_REQUEST_CODE)
+            } else {
+                // send intent with activity for result to edit child and update upon returning
+            }
+        }
 
         ib_parent_chore_detail_previous.setOnClickListener {
-            decrementPointer()
-            btn_parent_chore_detail_select_child.text = children[pointer].name
+            if (children.size > 1) {
+                decrementPointer()
+                btn_parent_chore_detail_select_child.text = children[pointer].name
+            }
         }
 
         ib_parent_chore_detail_next.setOnClickListener {
-            incrementPointer()
-            btn_parent_chore_detail_select_child.text = children[pointer].name
+            if (children.size > 1) {
+                incrementPointer()
+                btn_parent_chore_detail_select_child.text = children[pointer].name
+            }
         }
+
+        fab_delete_chore.setOnClickListener {
+
+        }
+
+        fab_save_chore.setOnClickListener {
+            if (pointer != 0) {
+                val choreName = et_parent_chore_detail_name.text.toString()
+                val choreDescription = et_parent_chore_detail_description.text.toString()
+                val chorePointValue = et_parent_chore_detail_points.text.toString().toInt()
+                val childId = children[pointer].child_id
+
+                val choreItem = Chore(
+                    choreName,
+                    choreDescription,
+                    chorePointValue,
+                    data?.childCompleted ?: false,
+                    data?.photoFilePath ?: "",
+                    userId,
+                    childId
+                    )
+
+                val intent = Intent()
+                intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
+                intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, choreItem)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            } else {
+                Toast.makeText(this, "Please select a child", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btn_parent_chore_detail_approve.setOnClickListener {
+
+        }
+
+        btn_parent_chore_detail_deny.setOnClickListener {
+
+        }
+
+    }
+
+    private fun addClickToRegisterChildToMList() {
+        children.add(Child("Click to register a child", "", 0, 0, "", -1))
+    }
+
+    private fun intentResult() {
 
     }
 
@@ -101,26 +175,24 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         et_parent_chore_detail_points.setText(int.toString())
     }
 
-    private fun setChoreDetail(string: String?) {
+    private fun setChoreDescription(string: String?) {
         et_parent_chore_detail_description.setText(string)
     }
 
-    private fun approvalButtonsVisibility(isComplete: Boolean?) {
+    private fun isCompleteButtonsVisibility(isComplete: Boolean?) {
         if (isComplete != null) {
             if (isComplete) {
                 ll_parent_chore_detail_completion_buttons.visibility = View.VISIBLE
-            } else {
-                ll_parent_chore_detail_completion_buttons.visibility = View.GONE
+                ll_parent_chore_detail_save_delete_fabs.visibility = View.GONE
             }
         }
     }
 
-    private fun deletionButtonVisibility(isCompleted: Boolean?) {
-        if (isCompleted != null) {
-            if (!isCompleted) {
-                btn_parent_chore_detail_delete.visibility = View.VISIBLE
-            } else
-                btn_parent_chore_detail_delete.visibility = View.GONE
+    private fun deletionButtonVisibility(isBeingEdited: Boolean?) {
+        if (isBeingEdited != null) {
+            if (isBeingEdited) {
+                ll_parent_chore_detail_delete_fab.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -144,6 +216,18 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         pointer--
         if (pointer < 0) {
             pointer = children.size - 1
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ParentMainActivity.CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val child = data?.getSerializableExtra(ParentMainActivity.CHILD_REQUEST_KEY) as Child
+            val childCreds =
+                data.getSerializableExtra(ParentMainActivity.CHILD_CREDENTIALS_REQUEST_KEY) as ChildLoginCredential
+
+            parentChoreDetailActivityViewModel.createChild(child)
+            parentChoreDetailActivityViewModel.createChildLoginCredential(childCreds)
         }
     }
 

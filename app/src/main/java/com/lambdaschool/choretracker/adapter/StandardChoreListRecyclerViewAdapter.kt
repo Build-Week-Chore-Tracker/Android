@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ParentChoreDetailActivity
@@ -51,7 +50,7 @@ class StandardChoreListRecyclerViewAdapter(val choreList: MutableList<Chore>) :
             val intent = Intent(context, ParentChoreDetailActivity::class.java)
             intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, item)
             (context as Activity).startActivityForResult(intent,
-                ParentStandardChoreListActivity.CREATE_CHORE_REQUEST_CODE
+                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_CODE
             )
         }
 

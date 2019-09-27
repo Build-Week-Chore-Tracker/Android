@@ -27,24 +27,15 @@ class ParentAddChildActivity : AppCompatActivity() {
         setContentView(R.layout.activity_parent_add_child)
 
         prefs = Prefs(this)
+
+        val loginCreds = prefs?.getLoginCredentials()
+        var userId = -1
+
+        loginCreds?.user?.let {
+            userId = it
         }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.save_child, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_child_menu) {
-
-            val loginCreds = prefs?.getLoginCredentials()
-            var userId = -1
-
-            loginCreds?.user?.let {
-                userId = it
-            }
-
+        fab_save_child.setOnClickListener {
             val name = et_add_child_child_name.text.toString().capitalize()
             val userName = et_add_child_username.text.toString()
             val password = et_add_child_password.text.toString()
@@ -62,7 +53,7 @@ class ParentAddChildActivity : AppCompatActivity() {
             if (name == "" || userName == "" || password == "") {
                 Toast.makeText(this, "Make sure Name, Username and password are not blank", Toast.LENGTH_SHORT).show()
             } else {
-              
+
                 val child = Child(name, childColor, 0, 0, "", userId)
 
                 val childCreds = ChildLoginCredential(userName, password)
@@ -74,8 +65,24 @@ class ParentAddChildActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        }
+
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.save_child, menu)
         return true
-    }
+    }*/
+
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.save_child_menu) {
+
+
+
+
+        }
+        return true
+    }*/
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +19,7 @@ import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
 import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
+import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.viewmodel.ParentMainActivityViewModel
 
 class ParentMainActivity : AppCompatActivity(),
@@ -26,26 +28,34 @@ class ParentMainActivity : AppCompatActivity(),
     NotificationsFragment.OnStoreFragmentInteractionListener {
 
     companion object {
+        const val ADD_CHILD_KEY = "ALKSDFPOKASDNLGKANDG"
+        const val ADD_CHORE_KEY = "LJASHD0GVINQ0PIGJH0IER"
         const val CHILD_REQUEST_CODE = 77
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
         const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
         const val EDIT_CHORE_DETAIL_KEY = "LJAHS0FIHPQIWEHFISF"
-        const val EDIT_CHORE_DETAIL_CODE = 8721
     }
 
     private lateinit var parentViewModel: ParentMainActivityViewModel
 
 
     override fun onParentChildrenListFragmentInteractionListener(child: Child) {
-        val intent = Intent(this, ParentChildDetailActivity::class.java)
-        intent.putExtra(CHILD_REQUEST_KEY, child)
-        startActivity(intent)
+        if (child.name == ADD_CHILD_KEY) {
+            val intent = Intent(this, ParentAddChildActivity::class.java)
+            startActivityForResult(intent, CHILD_REQUEST_CODE)
+        } else {
+            val intent = Intent(this, ParentChildDetailActivity::class.java)
+            intent.putExtra(CHILD_REQUEST_KEY, child)
+            startActivity(intent)
+        }
     }
 
-    override fun onParentChoresFragmentInteractionListener(intentKey: Int) {
-        if (intentKey == 777) {
+    override fun onParentChoresFragmentInteractionListener(chore: Chore) {
+        if (chore.title == ADD_CHORE_KEY) {
             val intent = Intent(this, ParentStandardChoreListActivity::class.java)
             startActivity(intent)
+        } else {
+            Toast.makeText(this, "still no edit chore intent :-(", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -73,19 +83,19 @@ class ParentMainActivity : AppCompatActivity(),
         parentViewModel = ViewModelProviders.of(this).get(ParentMainActivityViewModel::class.java)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.add_child_menu, menu)
         return true
-    }
+    }*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_child) {
             val intent = Intent(this, ParentAddChildActivity::class.java)
             startActivityForResult(intent, CHILD_REQUEST_CODE)
         }
         return true
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
