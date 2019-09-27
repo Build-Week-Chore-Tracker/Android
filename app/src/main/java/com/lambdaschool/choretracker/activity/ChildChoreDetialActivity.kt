@@ -71,7 +71,9 @@ class ChildChoreDetialActivity : AppCompatActivity() {
         }
 
         btn_chore_detail_submit.setOnClickListener {
+
             simulateNetworkCall()
+
             viewModel.updateChore(
                 Chore(
                     data.title,
@@ -83,7 +85,10 @@ class ChildChoreDetialActivity : AppCompatActivity() {
                     data.child_id
                 )
             )
-            Toast.makeText(this, "Chore submitted!", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent()
+            setResult(Activity.RESULT_OK, intent)
+            finish()
         }
     }
 
