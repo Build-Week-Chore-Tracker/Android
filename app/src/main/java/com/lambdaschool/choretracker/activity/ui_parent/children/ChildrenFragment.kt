@@ -35,8 +35,13 @@ class ChildrenFragment : Fragment() {
     ): View? {
         childrenViewModel =
             ViewModelProviders.of(this).get(ChildrenViewModel::class.java)
+
+        prefs = Prefs(context!!)
+
         val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
         return root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
