@@ -8,8 +8,16 @@
         <item name="colorAccent">@color/secondaryColor</item>
     </style>
 
-    <style name="ButtonStyles" parent="AppTheme">
+    <style name="ButtonStylesPrimaryColor" parent="AppTheme">
         <item name="android:backgroundTint">@color/primaryColor</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="ButtonStylesSecondaryColor" parent="AppTheme">
+        <item name="android:backgroundTint">@color/secondaryColor</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:elevation">4dp</item>
         <item name="android:padding">4dp</item>
