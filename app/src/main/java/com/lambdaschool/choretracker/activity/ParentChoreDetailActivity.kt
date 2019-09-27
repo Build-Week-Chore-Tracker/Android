@@ -24,7 +24,6 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     val children = mutableListOf<Child>()
     var pointer = 0
     var choreIsBeingEdited = false
-    var userId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +35,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         )
 
         val loginCreds = prefs?.getLoginCredentials()
+        var userId = -1
 
         loginCreds?.user?.let {
             userId = it
@@ -120,7 +120,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
 
         fab_save_chore.setOnClickListener {
             if (pointer != 0) {
-                updateChoreIntent(choreBuilder())
+                updateChoreIntent(choreBuilder(userId))
             } else {
                 Toast.makeText(this, "Please select a child", Toast.LENGTH_SHORT).show()
             }
@@ -168,7 +168,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun choreBuilder(): Chore {
+    private fun choreBuilder(userId: Int): Chore {
         val choreName = et_parent_chore_detail_name.text.toString()
         val choreDescription = et_parent_chore_detail_description.text.toString()
         val chorePointValue = et_parent_chore_detail_points.text.toString().toInt()
