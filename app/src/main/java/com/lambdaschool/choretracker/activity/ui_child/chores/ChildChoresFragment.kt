@@ -23,7 +23,7 @@ class ChildChoresFragment : Fragment() {
 
     private lateinit var childChoresViewModel: ChildChoresViewModel
     private var listener: OnChildChoresFragmentInteractionListener? = null
-    private var viewAdapter: ChoreRecyclerViewAdapter? = null
+    private var viewAdapterChild: ChildChoreRecyclerViewAdapter? = null
     var prefs: Prefs? = null
 
     override fun onCreateView(
@@ -57,12 +57,12 @@ class ChildChoresFragment : Fragment() {
                     ChoreList.choreList.add(t)
 
                     if (index == it.size - 1) {
-                        viewAdapter?.notifyDataSetChanged()
+                        viewAdapterChild?.notifyDataSetChanged()
                     }
                 }
             } else {
                 ChoreList.choreList.clear()
-                viewAdapter?.notifyDataSetChanged()
+                viewAdapterChild?.notifyDataSetChanged()
             }
         })
 
@@ -88,16 +88,15 @@ class ChildChoresFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        viewAdapter = ChoreRecyclerViewAdapter(ChoreList.choreList, listener, childChoresViewModel)
-        recyclerView.adapter = viewAdapter
+        viewAdapterChild = ChildChoreRecyclerViewAdapter(ChoreList.choreList, listener, childChoresViewModel)
+        recyclerView.adapter = viewAdapterChild
     }
 
-    class ChoreRecyclerViewAdapter(
-        /*private val parentActivity: ChildChoresFragment,*/
+    class ChildChoreRecyclerViewAdapter(
         private val values: List<Chore>,
         private val listener: OnChildChoresFragmentInteractionListener?,
         private val viewModel: ChildChoresViewModel
-    ) : RecyclerView.Adapter<ChoreRecyclerViewAdapter.ViewHolder>() {
+    ) : RecyclerView.Adapter<ChildChoreRecyclerViewAdapter.ViewHolder>() {
 
         lateinit var context: Context
 

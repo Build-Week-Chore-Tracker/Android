@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_chores"
-        android:name="com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment"
+        android:name="com.lambdaschool.choretracker.activity.ui_parent.chores.ParentChoresFragment"
         android:label="@string/title_chores"
         tools:layout="@layout/fragment_dashboard_parent" />
 

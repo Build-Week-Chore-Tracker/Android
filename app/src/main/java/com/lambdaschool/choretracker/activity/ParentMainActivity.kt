@@ -3,8 +3,6 @@ package com.lambdaschool.choretracker.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ui_parent.children.ChildrenFragment
-import com.lambdaschool.choretracker.activity.ui_parent.chores.HomeFragment
+import com.lambdaschool.choretracker.activity.ui_parent.chores.ParentChoresFragment
 import com.lambdaschool.choretracker.activity.ui_parent.store.NotificationsFragment
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
@@ -24,7 +22,7 @@ import com.lambdaschool.choretracker.viewmodel.ParentMainActivityViewModel
 
 class ParentMainActivity : AppCompatActivity(),
     ChildrenFragment.OnParentChildrenListFragmentInteractionListener,
-    HomeFragment.OnParentChoresFragmentInteractionListener,
+    ParentChoresFragment.OnParentChoresFragmentInteractionListener,
     NotificationsFragment.OnStoreFragmentInteractionListener {
 
     companion object {
@@ -34,6 +32,7 @@ class ParentMainActivity : AppCompatActivity(),
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
         const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
         const val EDIT_CHORE_DETAIL_KEY = "LJAHS0FIHPQIWEHFISF"
+        const val EDIT_CHORE_DETAIL_CODE = 7263
     }
 
     private lateinit var parentViewModel: ParentMainActivityViewModel
@@ -55,7 +54,9 @@ class ParentMainActivity : AppCompatActivity(),
             val intent = Intent(this, ParentStandardChoreListActivity::class.java)
             startActivity(intent)
         } else {
-            Toast.makeText(this, "still no edit chore intent :-(", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ParentChoreDetailActivity::class.java)
+            intent.putExtra(EDIT_CHORE_DETAIL_KEY, chore)
+            startActivityForResult(intent, EDIT_CHORE_DETAIL_CODE)
         }
 
     }
@@ -99,13 +100,31 @@ class ParentMainActivity : AppCompatActivity(),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val child = data?.getSerializableExtra(CHILD_REQUEST_KEY) as Child
-            val childCreds =
-                data.getSerializableExtra(CHILD_CREDENTIALS_REQUEST_KEY) as ChildLoginCredential
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CHILD_REQUEST_CODE) {
+                val child = data?.getSerializableExtra(CHILD_REQUEST_KEY) as Child
+                val childCreds =
+                    data.getSerializableExtra(CHILD_CREDENTIALS_REQUEST_KEY) as ChildLoginCredential
 
-            parentViewModel.createChild(child)
-            parentViewModel.createChildLoginCredential(childCreds)
+                parentViewModel.createChild(child)
+                parentViewModel.createChildLoginCredential(childCreds)
+            } else if (requestCode == EDIT_CHORE_DETAIL_CODE) {
+                val chore = data?.getSerializableExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
+                val choreId = data.getSerializableExtra(EDIT_CHORE_DETAIL_KEY) as Int
+
+                parentViewModel.updateChore(
+                    Chore(
+                        chore.title,
+                        chore.description,
+                        chore.pointValue,
+                        chore.childCompleted,
+                        chore.photoFilePath,
+                        chore.parent_id,
+                        chore.child_id,
+                        choreId
+                    )
+                )
+            }
         }
     }
 }
