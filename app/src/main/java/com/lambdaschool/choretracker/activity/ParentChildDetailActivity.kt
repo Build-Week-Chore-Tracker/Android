@@ -9,6 +9,7 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.adapter.ParentChildDetailChoreListAdapter
 import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildList
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.util.repo
@@ -46,7 +47,7 @@ class ParentChildDetailActivity : AppCompatActivity() {
         val adapter = ParentChildDetailChoreListAdapter(ChoreList.choreList)
         recyclerView.adapter = adapter
 
-        parentChildDetailActivityViewModel.getChildChores(userId).observe(this, Observer {
+        parentChildDetailActivityViewModel.getAllChoresForChildId(userId).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
@@ -62,6 +63,20 @@ class ParentChildDetailActivity : AppCompatActivity() {
             } else {
                 ChoreList.choreList.clear()
                 adapter.notifyDataSetChanged()
+            }
+        })
+
+        parentChildDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
+            if (it.isNotEmpty()) {
+                it.forEachIndexed { index, t ->
+                    if (index == 0) {
+                        ChildList.childList.clear()
+                    }
+
+                    ChildList.childList.add(t)
+                }
+            } else {
+                ChildList.childList.clear()
             }
         })
     }
