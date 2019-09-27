@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Chore
 import kotlinx.android.synthetic.main.list_item_parent_child_detail_chore.view.*
-import org.w3c.dom.Text
 
-class ParentChildDetailChoreListAdapter(val childChoreList: MutableList<Chore>) : RecyclerView.Adapter<ParentChildDetailChoreListAdapter.CustomViewHolder>() {
+class ParentChildDetailChoreListAdapter(val childChoreList: List<Chore>) : RecyclerView.Adapter<ParentChildDetailChoreListAdapter.CustomViewHolder>() {
     var context: Context? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         context = parent.context
