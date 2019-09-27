@@ -23,6 +23,7 @@
     <string name="chore_name">Chore name:</string>
     <string name="chore_description">Description:</string>
     <string name="set_point_value">Set point value:</string>
+    <string name="assigned_chores">Assigned chores</string>
     <string-array name="colors">
         <item>Red</item>
         <item>Blue</item>
