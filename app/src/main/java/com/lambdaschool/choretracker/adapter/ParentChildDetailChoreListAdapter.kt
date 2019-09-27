@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.model.Child
+import com.lambdaschool.choretracker.model.ChildList
 import com.lambdaschool.choretracker.model.Chore
 import kotlinx.android.synthetic.main.list_item_parent_child_detail_chore.view.*
 
@@ -25,6 +27,13 @@ class ParentChildDetailChoreListAdapter(val childChoreList: List<Chore>) : Recyc
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val chore = childChoreList[position]
+        var childInfo: Child? = null
+
+        ChildList.childList.forEach {
+            if (it.child_id == chore.child_id) {
+                childInfo = it
+            }
+        }
         holder.chore.text = chore.title
         holder.points.text = chore.pointValue.toString()
     }
