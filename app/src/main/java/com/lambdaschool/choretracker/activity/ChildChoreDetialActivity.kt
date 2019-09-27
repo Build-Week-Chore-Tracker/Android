@@ -82,7 +82,8 @@ class ChildChoreDetialActivity : AppCompatActivity() {
                     true,
                     filePath,
                     data.parent_id,
-                    data.child_id
+                    data.child_id,
+                    data.chore_id
                 )
             )
 
