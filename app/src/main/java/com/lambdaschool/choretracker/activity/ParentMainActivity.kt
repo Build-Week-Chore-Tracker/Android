@@ -27,7 +27,6 @@ class ParentMainActivity : AppCompatActivity(),
 
     companion object {
         const val CHILD_REQUEST_CODE = 77
-        const val CHORE_REQUEST_CODE = 65
         const val CHILD_REQUEST_KEY = "REQUEST_KEY"
         const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
     }
@@ -44,7 +43,7 @@ class ParentMainActivity : AppCompatActivity(),
     override fun onParentChoresFragmentInteractionListener(intentKey: Int) {
         if (intentKey == 777) {
             val intent = Intent(this, ParentStandardChoreListActivity::class.java)
-            startActivityForResult(intent, CHORE_REQUEST_CODE)
+            startActivity(intent)
         }
 
     }
