@@ -13,11 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
+import com.lambdaschool.choretracker.activity.ParentMainActivity
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
+import kotlinx.android.synthetic.main.fragment_chores_parent.*
 import kotlinx.android.synthetic.main.item_parent_chore.view.*
 import kotlinx.android.synthetic.main.list_item_parent_chore.*
 
@@ -47,6 +49,18 @@ class ParentChoresFragment : Fragment() {
 
         prefs?.getLoginCredentials()?.let {
             userId = it.user
+        }
+
+        fab_add_chore.setOnClickListener {
+            listener?.onParentChoresFragmentInteractionListener(Chore(
+                ParentMainActivity.ADD_CHORE_KEY,
+                "",
+                0,
+                false,
+                "",
+                0,
+                0
+            ))
         }
 
         parentChoresViewModel.getAllChoresForParentId(userId).observe(this, Observer {

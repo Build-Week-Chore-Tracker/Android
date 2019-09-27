@@ -24,6 +24,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     val children = mutableListOf<Child>()
     var pointer = 0
     var choreIsBeingEdited = false
+    var userId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,6 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         )
 
         val loginCreds = prefs?.getLoginCredentials()
-        var userId = -1
 
         loginCreds?.user?.let {
             userId = it
@@ -116,28 +116,23 @@ class ParentChoreDetailActivity : AppCompatActivity() {
 
         fab_delete_chore.setOnClickListener {
 
+            val intent = Intent()
+            intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
+            intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, data)
+            intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, false)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
         }
 
         fab_save_chore.setOnClickListener {
             if (pointer != 0) {
-                val choreName = et_parent_chore_detail_name.text.toString()
-                val choreDescription = et_parent_chore_detail_description.text.toString()
-                val chorePointValue = et_parent_chore_detail_points.text.toString().toInt()
-                val childId = children[pointer].child_id
 
-                val choreItem = Chore(
-                    choreName,
-                    choreDescription,
-                    chorePointValue,
-                    data?.childCompleted ?: false,
-                    data?.photoFilePath ?: "",
-                    userId,
-                    childId
-                    )
+                val choreItem = choreBuilder()
 
                 val intent = Intent()
                 intent.putExtra(ParentMainActivity.EDIT_CHORE_DETAIL_KEY, data?.chore_id)
                 intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, choreItem)
+                intent.putExtra(ParentMainActivity.DELETE_CHORE_KEY, true)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             } else {
@@ -155,12 +150,27 @@ class ParentChoreDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun addClickToRegisterChildToMList() {
-        children.add(Child("Click to register a child", "", 0, 0, "", -1))
+    private fun choreBuilder(): Chore {
+        val choreName = et_parent_chore_detail_name.text.toString()
+        val choreDescription = et_parent_chore_detail_description.text.toString()
+        val chorePointValue = et_parent_chore_detail_points.text.toString().toInt()
+        val childId = children[pointer].child_id
+
+        val choreItem = Chore(
+            choreName,
+            choreDescription,
+            chorePointValue,
+            data?.childCompleted ?: false,
+            data?.photoFilePath ?: "",
+            userId,
+            childId
+        )
+
+        return choreItem
     }
 
-    private fun intentResult() {
-
+    private fun addClickToRegisterChildToMList() {
+        children.add(Child("Click to register a child", "", 0, 0, "", -1))
     }
 
     private fun setHeader(string: String) {

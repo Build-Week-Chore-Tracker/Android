@@ -14,4 +14,6 @@ class ParentMainActivityViewModel : ViewModel() {
         repo.createChildLoginCredential(childCreds)
 
     fun updateChore(chore: Chore) = repo.updateChore(chore)
+
+    fun deleteChore(chore: Chore) = repo.deleteChore(chore)
 }
