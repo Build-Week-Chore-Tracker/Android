@@ -33,6 +33,7 @@ class ParentMainActivity : AppCompatActivity(),
         const val CHILD_CREDENTIALS_REQUEST_KEY = "QUIAHSWF09IUQWH0REGFH"
         const val EDIT_CHORE_DETAIL_KEY = "LJAHS0FIHPQIWEHFISF"
         const val EDIT_CHORE_DETAIL_CODE = 7263
+        const val DELETE_CHORE_KEY = "O0AINSDF08Q09FOJEPIH9IJPIAHS9FDIHJ1IHEF"
     }
 
     private lateinit var parentViewModel: ParentMainActivityViewModel
@@ -111,19 +112,25 @@ class ParentMainActivity : AppCompatActivity(),
             } else if (requestCode == EDIT_CHORE_DETAIL_CODE) {
                 val chore = data?.getSerializableExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
                 val choreId = data.getSerializableExtra(EDIT_CHORE_DETAIL_KEY) as Int
+                val isBeingUpdated = data.getSerializableExtra(DELETE_CHORE_KEY) as Boolean
 
-                parentViewModel.updateChore(
-                    Chore(
-                        chore.title,
-                        chore.description,
-                        chore.pointValue,
-                        chore.childCompleted,
-                        chore.photoFilePath,
-                        chore.parent_id,
-                        chore.child_id,
-                        choreId
-                    )
+                val reconstructedChore = Chore(
+                    chore.title,
+                    chore.description,
+                    chore.pointValue,
+                    chore.childCompleted,
+                    chore.photoFilePath,
+                    chore.parent_id,
+                    chore.child_id,
+                    choreId
                 )
+
+                if (isBeingUpdated) {
+
+                    parentViewModel.updateChore(reconstructedChore)
+                } else {
+                    parentViewModel.deleteChore(reconstructedChore)
+                }
             }
         }
     }
