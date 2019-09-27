@@ -85,7 +85,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         setChoreName(data?.title)
         setChorePoints(data?.pointValue)
         setChoreDescription(data?.description)
-        //deletionButtonVisibility(choreIsBeingEdited)
+        deletionButtonVisibility(choreIsBeingEdited)
         isCompleteButtonsVisibility(data?.childCompleted)
 
         btn_parent_chore_detail_select_child.setOnClickListener {
