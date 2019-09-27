@@ -3,6 +3,7 @@ package com.lambdaschool.choretracker.model
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.synthetic.main.fragment_trade_child.*
 import java.io.Serializable
 
 object ChoreList {
@@ -10,7 +11,7 @@ object ChoreList {
 }
 
 object StandardChoreList {
-    val standardChoreList = mutableListOf<Chore>(
+    val standardChoreList = mutableListOf(
         Chore("Create your own chore", "Create your own chore", 5, false, "", -1, -1),
         Chore("Clean room", "Clean your room", 5, false, "", -1, -1),
         Chore("Make bed", "Make your bed", 5, false, "", -1, -1),
