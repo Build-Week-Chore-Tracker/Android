@@ -21,8 +21,8 @@
     <string name="chore_streak">Chore Streak:</string>
     <string name="points">Points:</string>
     <string name="chore_name">Chore name:</string>
-    <string name="create_chore">Create Chore</string>
-    <string name="chore_description">Chore description:</string>
+    <string name="chore_description">Description:</string>
+    <string name="set_point_value">Set point value:</string>
     <string-array name="colors">
         <item>Red</item>
         <item>Blue</item>
@@ -31,6 +31,5 @@
         <item>Orange</item>
         <item>Pink</item>
         <item>Yellow</item>
-        <item>White</item>
     </string-array>
 </resources>

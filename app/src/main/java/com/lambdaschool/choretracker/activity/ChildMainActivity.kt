@@ -1,5 +1,6 @@
 package com.lambdaschool.choretracker.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -22,6 +23,7 @@ class ChildMainActivity : AppCompatActivity(),
 
     companion object {
         const val CHILD_CHORE_DETAIL_KEY = "LAHSD0FINHQ02IEFH"
+        const val CHILD_CHORE_DETAIL_CODE = 3871
     }
 
     override fun onChildTradeFragmentInteractionListener() {
@@ -31,7 +33,7 @@ class ChildMainActivity : AppCompatActivity(),
     override fun onChildChoresFragmentInteractionListener(chore: Chore) {
         val intent = Intent(this, ChildChoreDetialActivity::class.java)
         intent.putExtra(CHILD_CHORE_DETAIL_KEY, chore)
-        startActivity(intent)
+        startActivityForResult(intent, CHILD_CHORE_DETAIL_CODE)
     }
 
     override fun onChildPointsFragmentInteractionListener() {
@@ -53,5 +55,12 @@ class ChildMainActivity : AppCompatActivity(),
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CHILD_CHORE_DETAIL_CODE && resultCode == Activity.RESULT_OK) {
+            Toast.makeText(this, "Chore submitted!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

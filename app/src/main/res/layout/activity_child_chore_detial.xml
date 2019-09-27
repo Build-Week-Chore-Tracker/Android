@@ -89,7 +89,7 @@
 
                 <Button
                     android:id="@+id/btn_chore_detail_add_photo"
-                    style="@style/ButtonStyles"
+                    style="@style/ButtonStylesPrimaryColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -109,7 +109,7 @@
 
         <Button
             android:id="@+id/btn_chore_detail_submit"
-            style="@style/ButtonStyles"
+            style="@style/ButtonStylesSecondaryColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

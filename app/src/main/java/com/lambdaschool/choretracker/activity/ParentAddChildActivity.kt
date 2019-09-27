@@ -19,12 +19,15 @@ import kotlinx.android.synthetic.main.activity_parent_add_child.*
 class ParentAddChildActivity : AppCompatActivity() {
 
     var prefs: Prefs? = null
+    private var doubleBackToExitPressedOnce = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_add_child)
 
-    }
+        prefs = Prefs(this)
+        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
@@ -34,7 +37,7 @@ class ParentAddChildActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.save_child_menu) {
-            //TODO pass data back to child fragment
+
             val loginCreds = prefs?.getLoginCredentials()
             var userId = -1
 
@@ -53,7 +56,6 @@ class ParentAddChildActivity : AppCompatActivity() {
                 spinner.selectedItem.toString() == "Orange" -> "#FFA500"
                 spinner.selectedItem.toString() == "Pink" -> "#FFC0CB"
                 spinner.selectedItem.toString() == "Yellow" -> "#FFFF00"
-                spinner.selectedItem.toString() == "White" -> "#FFFFFF"
                 else -> "#FFFFFF"
             }
 
@@ -75,7 +77,6 @@ class ParentAddChildActivity : AppCompatActivity() {
         return true
     }
 
-    private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()

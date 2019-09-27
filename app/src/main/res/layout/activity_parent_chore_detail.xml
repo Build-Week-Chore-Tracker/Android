@@ -1,9 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.ParentChoreDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_parent_chore_detail_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Programatically"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_parent_chore_detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/chore_name"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_parent_chore_detail_points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/set_point_value"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/et_parent_chore_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/chore_description"
+                    android:inputType="text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/ib_parent_chore_detail_previous"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@android:drawable/ic_media_previous" />
+
+                    <Button
+                        android:id="@+id/btn_parent_chore_detail_select_child"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/secondaryLightLightColor"
+                        android:clickable="false"
+                        android:text="Child Name"
+                        android:textAllCaps="false"
+                        android:textSize="20sp" />
+
+                    <ImageButton
+                        android:id="@+id/ib_parent_chore_detail_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@android:drawable/ic_media_next" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_parent_chore_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_parent_chore_detail_completion_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_parent_chore_detail_approve"
+            style="@style/ButtonStylesSecondaryColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:text="Approve"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_parent_chore_detail_deny"
+            style="@style/ButtonStylesSecondaryColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:padding="15dp"
+            android:text="Deny"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_parent_chore_detail_delete"
+        style="@style/ButtonStylesSecondaryColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:padding="15dp"
+        android:text="Delete"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+</LinearLayout>
