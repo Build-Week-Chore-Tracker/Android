@@ -7,7 +7,6 @@ import com.lambdaschool.choretracker.util.repo
 
 class ChildChoresViewModel : ViewModel() {
 
-    fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>> {
-        return repo.getAllChoresForChildId(childId)
-    }
+    fun getAllChoresForChildId(childId: Int): LiveData<List<Chore>> =
+        repo.getAllChoresForChildId(childId)
 }

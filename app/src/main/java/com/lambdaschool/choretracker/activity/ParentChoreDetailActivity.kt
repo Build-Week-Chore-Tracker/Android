@@ -56,11 +56,11 @@ class ParentChoreDetailActivity : AppCompatActivity() {
             choreIsBeingEdited = true
 
             data = intent.getSerializableExtra(
-                ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY
+                ParentMainActivity.EDIT_CHORE_DETAIL_KEY
             ) as Chore
 
             setHeader("Edit Chore")
-            setPointerForChild(data?.child_id)
+
         }
 
         parentChoreDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
@@ -73,6 +73,8 @@ class ParentChoreDetailActivity : AppCompatActivity() {
                     children.add(t)
                     if (index == it.size - 1 && !choreIsBeingEdited) {
                         setPointerForChild(children[1].child_id)
+                    } else if (index == it.size - 1 && choreIsBeingEdited) {
+                        setPointerForChild(data?.child_id)
                     }
                 }
             } else {
