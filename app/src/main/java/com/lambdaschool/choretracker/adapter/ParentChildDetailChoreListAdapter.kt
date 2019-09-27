@@ -27,13 +27,7 @@ class ParentChildDetailChoreListAdapter(val childChoreList: List<Chore>) : Recyc
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val chore = childChoreList[position]
-        var childInfo: Child? = null
 
-        ChildList.childList.forEach {
-            if (it.child_id == chore.child_id) {
-                childInfo = it
-            }
-        }
         holder.chore.text = chore.title
         holder.points.text = chore.pointValue.toString()
     }

@@ -10,6 +10,7 @@ import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD
 import com.lambdaschool.choretracker.adapter.ParentChildDetailChoreListAdapter
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildList
+import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.util.repo
@@ -28,14 +29,6 @@ class ParentChildDetailActivity : AppCompatActivity() {
         val intent = intent.getSerializableExtra(CHILD_REQUEST_KEY) as Child
         tv_child_detail_name.text = intent.name
 
-        prefs = Prefs(this)
-
-        var userId = -1
-
-        prefs?.getLoginCredentials()?.let {
-            userId = it.user
-        }
-
         parentChildDetailActivityViewModel =
             ViewModelProviders.of(this).get(ParentChildDetailActivityViewModel::class.java)
 
@@ -47,7 +40,7 @@ class ParentChildDetailActivity : AppCompatActivity() {
         val adapter = ParentChildDetailChoreListAdapter(ChoreList.choreList)
         recyclerView.adapter = adapter
 
-        parentChildDetailActivityViewModel.getAllChoresForChildId(userId).observe(this, Observer {
+        parentChildDetailActivityViewModel.getAllChoresForChildId(intent.child_id).observe(this, Observer {
             if (it.isNotEmpty()) {
                 it.forEachIndexed { index, t ->
                     if (index == 0) {
@@ -63,20 +56,6 @@ class ParentChildDetailActivity : AppCompatActivity() {
             } else {
                 ChoreList.choreList.clear()
                 adapter.notifyDataSetChanged()
-            }
-        })
-
-        parentChildDetailActivityViewModel.getAllChildForParentId(userId).observe(this, Observer {
-            if (it.isNotEmpty()) {
-                it.forEachIndexed { index, t ->
-                    if (index == 0) {
-                        ChildList.childList.clear()
-                    }
-
-                    ChildList.childList.add(t)
-                }
-            } else {
-                ChildList.childList.clear()
             }
         })
     }
