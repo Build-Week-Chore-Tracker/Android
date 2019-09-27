@@ -16,6 +16,7 @@ import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.util.repo
 import com.lambdaschool.choretracker.viewmodel.ParentChildDetailActivityViewModel
 import kotlinx.android.synthetic.main.activity_parent_child_detail.*
+import kotlinx.android.synthetic.main.list_item_parent_child_detail_chore.*
 
 class ParentChildDetailActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class ParentChildDetailActivity : AppCompatActivity() {
 
         val intent = intent.getSerializableExtra(CHILD_REQUEST_KEY) as Child
         tv_child_detail_name.text = intent.name
+        tv_child_detail_points.text = intent.earnedPoints.toString()
 
         parentChildDetailActivityViewModel =
             ViewModelProviders.of(this).get(ParentChildDetailActivityViewModel::class.java)
