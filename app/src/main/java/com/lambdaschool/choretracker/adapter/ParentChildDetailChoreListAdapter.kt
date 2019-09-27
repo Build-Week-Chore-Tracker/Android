@@ -1,11 +1,14 @@
 package com.lambdaschool.choretracker.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.model.Child
@@ -28,13 +31,23 @@ class ParentChildDetailChoreListAdapter(val childChoreList: List<Chore>) : Recyc
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val chore = childChoreList[position]
 
+        var childInfo: Child? = null
+
+        ChildList.childList.forEach {
+            if (it.child_id == chore.child_id) {
+                childInfo = it
+            }
+        }
+
         holder.chore.text = chore.title
         holder.points.text = chore.pointValue.toString()
+        holder.cardview.setCardBackgroundColor(Color.parseColor(childInfo?.labelColorHex))
     }
 
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val layout: LinearLayout = view.ll_parent_child_detail_chore_layout
+        val layout: ConstraintLayout = view.constraint_parent_child_detail_chore_layout
         val chore: TextView = view.tv_parent_child_detail_chore
         val points: TextView = view.tv_parent_child_detail_chore_points
+        val cardview: CardView = view.cardview_parent_child_detail_chore
     }
 }
