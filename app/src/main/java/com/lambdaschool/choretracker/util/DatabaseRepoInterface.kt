@@ -26,6 +26,7 @@ interface DatabaseRepoInterface {
     fun createChildLoginCredential(childCreds: ChildLoginCredential)
     fun getChildLoginCredentialForUsernamePassword(username: String, password: String):
             LiveData<ChildLoginCredential>
+    fun getChildLoginCredentialForUsername(username: String): LiveData<ChildLoginCredential>
     fun updateChildLoginCredential(childCreds: ChildLoginCredential)
     fun deleteChildLoginCredential(childCreds: ChildLoginCredential)
 

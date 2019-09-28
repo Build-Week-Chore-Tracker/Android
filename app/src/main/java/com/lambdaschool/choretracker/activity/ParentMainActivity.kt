@@ -109,6 +109,14 @@ class ParentMainActivity : AppCompatActivity(),
 
                 parentViewModel.createChild(child)
                 parentViewModel.createChildLoginCredential(childCreds)
+
+                Toast.makeText(
+                    this,
+                    "${child.name} has been registered for an account with the " +
+                            "username of '${childCreds.username}'",
+                    Toast.LENGTH_LONG
+                ).show()
+
             } else if (requestCode == EDIT_CHORE_DETAIL_CODE) {
                 val chore = data?.getSerializableExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
                 val choreId = data.getSerializableExtra(EDIT_CHORE_DETAIL_KEY) as Int

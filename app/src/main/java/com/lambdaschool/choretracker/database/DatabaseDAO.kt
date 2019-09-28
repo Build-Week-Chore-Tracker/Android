@@ -48,6 +48,9 @@ interface DatabaseDAO {
     @Query("SELECT * FROM child_login_credential WHERE username = :username AND password = :password")
     fun getChildLoginCredentialForUsernamePassword(username: String, password: String): LiveData<ChildLoginCredential>
 
+    @Query("SELECT * FROM child_login_credential WHERE username = :username")
+    fun getChildLoginCredentialForUsername(username: String): LiveData<ChildLoginCredential>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateChildLoginCredential(childCreds: ChildLoginCredential)
 

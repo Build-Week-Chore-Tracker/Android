@@ -126,6 +126,11 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
         return database.databaseDao().getChildLoginCredentialForUsernamePassword(username, password)
     }
 
+    override fun getChildLoginCredentialForUsername(username: String):
+            LiveData<ChildLoginCredential> {
+        return database.databaseDao().getChildLoginCredentialForUsername(username)
+    }
+
     override fun updateChildLoginCredential(childCreds: ChildLoginCredential) {
         UpdateChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
     }
