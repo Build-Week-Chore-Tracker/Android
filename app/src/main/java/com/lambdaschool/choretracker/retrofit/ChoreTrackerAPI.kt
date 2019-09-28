@@ -19,10 +19,10 @@ interface ChoreTrackerAPI {
     fun userLogin(@Body loginInfo: CredentialsAPI): Call<LoginReturnedAPI>
 
     @GET("user/{id}")
-    fun getFamilyMembersByParentId(@Path("id") parentId: Int) : Call<List<ChildAPI>>
+    fun getFamilyMembersByParentId(@Path("id") parentId: Int): Call<List<ChildAPI>>
 
     @GET("user/1/chores")
-    fun getAllChores() : Call<List<ChoreAPI>>
+    fun getAllChores(): Call<List<ChoreAPI>>
 
     @PUT("user/chores/{id}")
     fun updateChore(@Body chores: ChoreAPI, @Path("id") choreId: Int): Call<ChoreAPI>

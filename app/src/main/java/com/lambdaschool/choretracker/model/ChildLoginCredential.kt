@@ -10,7 +10,7 @@ object ChildLoginCredentialList {
 }
 
 @Entity(tableName = "child_login_credential")
-class ChildLoginCredential (
+class ChildLoginCredential(
     val username: String,
     val password: String,
 

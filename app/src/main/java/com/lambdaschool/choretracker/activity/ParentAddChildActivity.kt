@@ -5,32 +5,35 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_CREDENTIALS_REQUEST_KEY
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.util.Prefs
+import com.lambdaschool.choretracker.viewmodel.ParentAddChildActivityViewModel
 import kotlinx.android.synthetic.main.activity_parent_add_child.*
 
 class ParentAddChildActivity : AppCompatActivity() {
 
     var prefs: Prefs? = null
     private var doubleBackToExitPressedOnce = false
-
+    lateinit var viewModel: ParentAddChildActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_add_child)
 
+        var childCreated = false
         prefs = Prefs(this)
+        viewModel = ViewModelProviders.of(this).get(ParentAddChildActivityViewModel::class.java)
 
         val loginCreds = prefs?.getLoginCredentials()
-        var userId = -1
 
+        var userId = -1
         loginCreds?.user?.let {
             userId = it
         }
@@ -50,39 +53,39 @@ class ParentAddChildActivity : AppCompatActivity() {
                 else -> "#FFFFFF"
             }
 
-            if (name == "" || userName == "" || password == "") {
-                Toast.makeText(this, "Make sure Name, Username and password are not blank", Toast.LENGTH_SHORT).show()
+            if (name != "" && userName != "" && password != "") {
+                viewModel.getChildLoginCredentialForUsername(userName)
+                    .observe(this, Observer {
+                        if (it == null) {
+                            val child = Child(name, childColor, 0, 0, "", userId)
+                            val childCreds = ChildLoginCredential(userName, password)
+
+                            childCreated = true
+
+                            val intent = Intent()
+                            intent.putExtra(CHILD_REQUEST_KEY, child)
+                            intent.putExtra(CHILD_CREDENTIALS_REQUEST_KEY, childCreds)
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                        } else {
+                            if (!childCreated) {
+                                Toast.makeText(
+                                    this,
+                                    "The username '${it.username}' already exists",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    })
             } else {
-
-                val child = Child(name, childColor, 0, 0, "", userId)
-
-                val childCreds = ChildLoginCredential(userName, password)
-
-                val intent = Intent()
-                intent.putExtra(CHILD_REQUEST_KEY, child)
-                intent.putExtra(CHILD_CREDENTIALS_REQUEST_KEY, childCreds)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                Toast.makeText(
+                    this,
+                    "Please ensure no fields are left blank.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-
-        }
-
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.save_child, menu)
-        return true
-    }*/
-
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_child_menu) {
-
-
-
-
-        }
-        return true
-    }*/
+    }
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -91,9 +94,11 @@ class ParentAddChildActivity : AppCompatActivity() {
         }
 
         this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this,
+        Toast.makeText(
+            this,
             "Press back again to leave child sign up. This will not add your child to the account.",
-            Toast.LENGTH_LONG).show()
+            Toast.LENGTH_LONG
+        ).show()
 
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 3000)
     }

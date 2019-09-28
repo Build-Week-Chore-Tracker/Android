@@ -22,13 +22,13 @@ class CredentialsAPI(
     val password: String
 )
 
-data class LoginReturnedAPI (
+data class LoginReturnedAPI(
     val message: String,
     val token: String,
     val user: Int
 )
 
-class SerializableChoreAPI (
+class SerializableChoreAPI(
     val name: String,
     val how_long: String,
     val points: Int,
@@ -36,17 +36,17 @@ class SerializableChoreAPI (
     val done_date: String,
     val notes: String,
     val User_id: Int
-): Serializable
+) : Serializable
 
-class SerializableChildAPI (
+class SerializableChildAPI(
     val name: String,
     val username: String,
     val age: Int,
     val points: Int,
     val child: Boolean
-): Serializable
+) : Serializable
 
-data class ChoreAPI (
+data class ChoreAPI(
     val name: String,
     val how_long: String,
     val points: Int,
@@ -56,7 +56,7 @@ data class ChoreAPI (
     val User_id: Int
 )
 
-data class ChildAPI (
+data class ChildAPI(
     val name: String,
     val username: String,
     val age: Int,

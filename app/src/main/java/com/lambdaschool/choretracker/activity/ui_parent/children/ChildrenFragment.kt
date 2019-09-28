@@ -42,8 +42,6 @@ class ChildrenFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_dashboard_parent, container, false)
         return root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,6 +72,7 @@ class ChildrenFragment : Fragment() {
                 viewAdapter?.notifyDataSetChanged()
             }
         })
+
         setupRecyclerView(recyclerview_children)
 
         fab_add_child.setOnClickListener {
@@ -85,9 +84,9 @@ class ChildrenFragment : Fragment() {
                     0,
                     "",
                     -1
-                ))
+                )
+            )
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -116,7 +115,6 @@ class ChildrenFragment : Fragment() {
     }
 
     class ParentsChildrenViewAdapter(
-        /*private val parentActivity: ChildChoresFragment,*/
         private val childrenList: List<Child>,
         private val listener: OnParentChildrenListFragmentInteractionListener?
     ) : RecyclerView.Adapter<ParentsChildrenViewAdapter.ViewHolder>() {
@@ -140,11 +138,6 @@ class ChildrenFragment : Fragment() {
             holder.card.setOnClickListener {
                 listener?.onParentChildrenListFragmentInteractionListener(child)
             }
-
-            /*holder.card.setOnLongClickListener {
-                listener?.onParentChildrenListFragmentInteractionListener(item, true)
-                true
-            }*/
         }
 
         override fun getItemCount(): Int {

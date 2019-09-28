@@ -42,7 +42,6 @@ class ChildChoresFragment : Fragment() {
         prefs = Prefs(context!!)
 
         var userId = -1
-
         prefs?.getLoginCredentials()?.let {
             userId = it.user
         }
@@ -88,7 +87,8 @@ class ChildChoresFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        viewAdapterChild = ChildChoreRecyclerViewAdapter(ChoreList.choreList, listener, childChoresViewModel)
+        viewAdapterChild =
+            ChildChoreRecyclerViewAdapter(ChoreList.choreList, listener, childChoresViewModel)
         recyclerView.adapter = viewAdapterChild
     }
 

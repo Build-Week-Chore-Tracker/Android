@@ -80,7 +80,6 @@ class ChildChoreDetialActivity : AppCompatActivity() {
         }
 
         btn_chore_detail_submit.setOnClickListener {
-
             simulateNetworkCall()
 
             viewModel.updateChore(

@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.util.repo
 
-class RegistrationFragmentViewModel: ViewModel() {
+class RegistrationFragmentViewModel : ViewModel() {
 
-    fun registerUser(creds: CredentialsAPI) = repo.registerUser(creds)
+    fun registerUser(creds: CredentialsAPI) =
+        repo.registerUser(creds)
 }

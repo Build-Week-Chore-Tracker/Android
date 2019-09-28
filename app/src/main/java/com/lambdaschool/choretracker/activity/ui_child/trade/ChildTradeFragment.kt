@@ -22,10 +22,7 @@ class ChildTradeFragment : Fragment() {
         childTradeViewModel =
             ViewModelProviders.of(this).get(ChildTradeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_trade_child, container, false)
-        /*val textView: TextView = root.findViewById(R.id.tv_child_notifications)
-        childTradeViewModel.text.observe(this, Observer {
-            textView.text = it
-        })*/
+
         return root
     }
 
@@ -39,7 +36,7 @@ class ChildTradeFragment : Fragment() {
         if (context is OnChildTradeFragmentInteractionListener) {
             listenerChild = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnParentChildrenListFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnChildTradeFragmentInteractionListener")
         }
     }
 

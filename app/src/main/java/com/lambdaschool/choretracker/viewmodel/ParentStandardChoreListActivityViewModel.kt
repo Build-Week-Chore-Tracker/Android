@@ -6,7 +6,9 @@ import com.lambdaschool.choretracker.util.repo
 
 class ParentStandardChoreListActivityViewModel : ViewModel() {
 
-    fun getAllChoresForParentId(parentId: Int) = repo.getAllChoresForParentId(parentId)
+    fun getAllChoresForParentId(parentId: Int) =
+        repo.getAllChoresForParentId(parentId)
 
-    fun createChore(chore: Chore) = repo.createChore(chore)
+    fun createChore(chore: Chore) =
+        repo.createChore(chore)
 }

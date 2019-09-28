@@ -85,20 +85,6 @@ class ParentMainActivity : AppCompatActivity(),
         parentViewModel = ViewModelProviders.of(this).get(ParentMainActivityViewModel::class.java)
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.add_child_menu, menu)
-        return true
-    }*/
-
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.add_child) {
-            val intent = Intent(this, ParentAddChildActivity::class.java)
-            startActivityForResult(intent, CHILD_REQUEST_CODE)
-        }
-        return true
-    }*/
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -109,8 +95,17 @@ class ParentMainActivity : AppCompatActivity(),
 
                 parentViewModel.createChild(child)
                 parentViewModel.createChildLoginCredential(childCreds)
+
+                Toast.makeText(
+                    this,
+                    "${child.name} has been registered for an account with the " +
+                            "username of '${childCreds.username}'",
+                    Toast.LENGTH_LONG
+                ).show()
+
             } else if (requestCode == EDIT_CHORE_DETAIL_CODE) {
-                val chore = data?.getSerializableExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
+                val chore =
+                    data?.getSerializableExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY) as Chore
                 val choreId = data.getSerializableExtra(EDIT_CHORE_DETAIL_KEY) as Int
                 val isBeingUpdated = data.getSerializableExtra(DELETE_CHORE_KEY) as Boolean
 

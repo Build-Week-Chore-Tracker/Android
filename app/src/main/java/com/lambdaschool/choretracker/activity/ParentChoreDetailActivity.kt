@@ -23,7 +23,9 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     var prefs: Prefs? = null
     val children = mutableListOf<Child>()
     var pointer = 0
+    val CHILD_SELECTION_REGISTRATION_STRING = "Click to register a child"
     var choreIsBeingEdited = false
+    var childCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,9 +73,20 @@ class ParentChoreDetailActivity : AppCompatActivity() {
                             children.clear()
                             addClickToRegisterChildToMList()
                         }
+
                         children.add(t)
+
                         if (index == it.size - 1 && !choreIsBeingEdited) {
-                            setPointerForChild(children[1].child_id)
+                            if (childCreated) {
+                                setPointerForChild(children[it.size].child_id)
+                            } else {
+                                children.shuffle()
+                                var i = 1
+                                if (children[i].name == CHILD_SELECTION_REGISTRATION_STRING) {
+                                    i++
+                                }
+                                setPointerForChild(children[i].child_id)
+                            }
                         } else if (index == it.size - 1 && choreIsBeingEdited) {
                             setPointerForChild(data?.child_id)
                         }
@@ -190,7 +203,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     }
 
     private fun addClickToRegisterChildToMList() {
-        children.add(Child("Click to register a child", "", 0, 0, "", -1))
+        children.add(Child(CHILD_SELECTION_REGISTRATION_STRING, "", 0, 0, "", -1))
     }
 
     private fun setHeader(string: String) {
@@ -262,6 +275,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
             val childCreds =
                 data.getSerializableExtra(ParentMainActivity.CHILD_CREDENTIALS_REQUEST_KEY) as ChildLoginCredential
 
+            childCreated = true
             parentChoreDetailActivityViewModel.createChild(child)
             parentChoreDetailActivityViewModel.createChildLoginCredential(childCreds)
         }

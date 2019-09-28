@@ -6,9 +6,10 @@ import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.CredentialsAPI
 import com.lambdaschool.choretracker.util.repo
 
-class LoginActivityViewModel: ViewModel() {
+class LoginActivityViewModel : ViewModel() {
 
-    fun loginUser(creds: CredentialsAPI) = repo.loginUser(creds)
+    fun loginUser(creds: CredentialsAPI) =
+        repo.loginUser(creds)
 
     fun getChildLoginCredentialForUsernamePassword(username: String, password: String):
             LiveData<ChildLoginCredential> =
