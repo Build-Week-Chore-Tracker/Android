@@ -24,12 +24,14 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     val children = mutableListOf<Child>()
     var pointer = 0
     val CHILD_SELECTION_REGISTRATION_STRING = "Click to register a child"
-    var choreIsBeingEdited = false
     var childCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_chore_detail)
+
+        var choreIsBeingEdited = false
+        childCreated = false
 
         prefs = Prefs(this)
         parentChoreDetailActivityViewModel = ViewModelProviders.of(this).get(
@@ -71,7 +73,16 @@ class ParentChoreDetailActivity : AppCompatActivity() {
                     it.forEachIndexed { index, t ->
                         if (index == 0) {
                             children.clear()
-                            addClickToRegisterChildToMList()
+                            children.add(
+                                Child(
+                                    CHILD_SELECTION_REGISTRATION_STRING,
+                                    "",
+                                    0,
+                                    0,
+                                    "",
+                                    -1
+                                )
+                            )
                         }
 
                         children.add(t)
@@ -106,7 +117,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         isCompleteButtonsVisibility(data?.childCompleted)
 
         btn_parent_chore_detail_select_child.setOnClickListener {
-            if (btn_parent_chore_detail_select_child.text == children[0].name) {
+            if (btn_parent_chore_detail_select_child.text == CHILD_SELECTION_REGISTRATION_STRING) {
 
                 val intent = Intent(this, ParentAddChildActivity::class.java)
                 startActivityForResult(intent, ParentMainActivity.CHILD_REQUEST_CODE)
@@ -134,7 +145,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
         }
 
         fab_save_chore.setOnClickListener {
-            if (pointer != 0) {
+            if (btn_parent_chore_detail_select_child.text != CHILD_SELECTION_REGISTRATION_STRING) {
                 updateChoreIntent(choreBuilder(userId))
             } else {
                 Toast.makeText(this, "Please select a child", Toast.LENGTH_SHORT).show()
@@ -203,7 +214,7 @@ class ParentChoreDetailActivity : AppCompatActivity() {
     }
 
     private fun addClickToRegisterChildToMList() {
-        children.add(Child(CHILD_SELECTION_REGISTRATION_STRING, "", 0, 0, "", -1))
+
     }
 
     private fun setHeader(string: String) {
