@@ -5,8 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,7 +13,6 @@ import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.model.Child
 import com.lambdaschool.choretracker.model.ChildLoginCredential
-import com.lambdaschool.choretracker.model.LoginReturnedAPI
 import com.lambdaschool.choretracker.util.Prefs
 import com.lambdaschool.choretracker.viewmodel.ParentAddChildActivityViewModel
 import kotlinx.android.synthetic.main.activity_parent_add_child.*
@@ -35,8 +32,8 @@ class ParentAddChildActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ParentAddChildActivityViewModel::class.java)
 
         val loginCreds = prefs?.getLoginCredentials()
-        var userId = -1
 
+        var userId = -1
         loginCreds?.user?.let {
             userId = it
         }
@@ -57,7 +54,6 @@ class ParentAddChildActivity : AppCompatActivity() {
             }
 
             if (name != "" && userName != "" && password != "") {
-
                 viewModel.getChildLoginCredentialForUsername(userName)
                     .observe(this, Observer {
                         if (it == null) {

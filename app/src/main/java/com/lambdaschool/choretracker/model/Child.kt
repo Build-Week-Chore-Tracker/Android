@@ -9,8 +9,8 @@ object ChildList {
     val childList = mutableListOf<Child>()
 }
 
-@Entity (tableName = "child_table")
-class Child (
+@Entity(tableName = "child_table")
+class Child(
     var name: String,
     var labelColorHex: String, // "#FFFFFF"
     var earnedPoints: Int,

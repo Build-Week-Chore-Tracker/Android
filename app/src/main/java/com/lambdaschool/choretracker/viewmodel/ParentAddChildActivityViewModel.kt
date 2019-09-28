@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.util.repo
 
-class ParentAddChildActivityViewModel: ViewModel() {
+class ParentAddChildActivityViewModel : ViewModel() {
 
-    fun getChildLoginCredentialForUsername(username: String):
-            LiveData<ChildLoginCredential> {
-        return repo.getChildLoginCredentialForUsername(username)
-    }
+    fun getChildLoginCredentialForUsername(username: String): LiveData<ChildLoginCredential> =
+        repo.getChildLoginCredentialForUsername(username)
 }

@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.choretracker.R
-import com.lambdaschool.choretracker.model.Chore
-import kotlinx.android.synthetic.main.fragment_points_child.*
 
 class ChildPointsFragment : Fragment() {
 

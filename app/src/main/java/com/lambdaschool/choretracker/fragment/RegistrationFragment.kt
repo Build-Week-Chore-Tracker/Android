@@ -76,16 +76,18 @@ class RegistrationFragment : Fragment() {
 
             viewModel.registerUser(CredentialsAPI(regName, regUserName, regEmail, regPassword))
                 .observe(this, Observer {
-                if (it) {
-                    Toast.makeText(context, "Registration successful! Please Login.", Toast.LENGTH_SHORT).show()
-                    closeFragmentCleanup()
-                } else {
-                    Toast.makeText(context, "Failure to register", Toast.LENGTH_SHORT).show()
-                }
-            })
-
+                    if (it) {
+                        Toast.makeText(
+                            context,
+                            "Registration successful! Please Login.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        closeFragmentCleanup()
+                    } else {
+                        Toast.makeText(context, "Failure to register", Toast.LENGTH_SHORT).show()
+                    }
+                })
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -118,7 +120,6 @@ class RegistrationFragment : Fragment() {
     }
 
     fun closeFragmentCleanup() {
-
         listener?.onRegistrationFragmentInteraction(
             LoginActivity.LINEAR_LAYOUT_VISIBILITY_KEY, false
         )

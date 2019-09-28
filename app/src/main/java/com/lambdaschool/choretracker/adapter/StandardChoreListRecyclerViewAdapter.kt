@@ -22,9 +22,10 @@ class StandardChoreListRecyclerViewAdapter(val choreList: MutableList<Chore>) :
     var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-
         context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.item_parent_standard_chore, parent, false)
+        val view =
+            LayoutInflater.from(context)
+                .inflate(R.layout.item_parent_standard_chore, parent, false)
 
         return CustomViewHolder(view)
     }
@@ -46,10 +47,10 @@ class StandardChoreListRecyclerViewAdapter(val choreList: MutableList<Chore>) :
 
         holder.chore.text = item.title
         holder.choreCard.setOnClickListener {
-
             val intent = Intent(context, ParentChoreDetailActivity::class.java)
             intent.putExtra(ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_KEY, item)
-            (context as Activity).startActivityForResult(intent,
+            (context as Activity).startActivityForResult(
+                intent,
                 ParentStandardChoreListActivity.PARENT_CHORE_DETAIL_CODE
             )
         }

@@ -8,12 +8,15 @@ import com.lambdaschool.choretracker.util.repo
 
 class ParentMainActivityViewModel : ViewModel() {
 
-    fun createChild(child: Child) = repo.createChild(child)
+    fun createChild(child: Child) =
+        repo.createChild(child)
 
     fun createChildLoginCredential(childCreds: ChildLoginCredential) =
         repo.createChildLoginCredential(childCreds)
 
-    fun updateChore(chore: Chore) = repo.updateChore(chore)
+    fun updateChore(chore: Chore) =
+        repo.updateChore(chore)
 
-    fun deleteChore(chore: Chore) = repo.deleteChore(chore)
+    fun deleteChore(chore: Chore) =
+        repo.deleteChore(chore)
 }

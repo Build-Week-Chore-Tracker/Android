@@ -33,10 +33,8 @@ class ParentStandardChoreListActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(ParentStandardChoreListActivityViewModel::class.java)
 
         val recyclerView = recyclerview_chores
-
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-
         val adapter = StandardChoreListRecyclerViewAdapter(StandardChoreList.standardChoreList)
         recyclerView.adapter = adapter
 

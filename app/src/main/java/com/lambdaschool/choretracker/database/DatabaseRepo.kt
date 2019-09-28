@@ -9,7 +9,6 @@ import com.lambdaschool.choretracker.util.DatabaseRepoInterface
 import com.lambdaschool.choretracker.model.*
 import com.lambdaschool.choretracker.util.prefs
 import com.lambdaschool.choretracker.retrofit.ChoreTrackerAPI
-import com.lambdaschool.choretracker.util.Prefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,19 +22,20 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
 
         val registrationSuccessful = MutableLiveData<Boolean>()
 
-        retrofitInstance.userRegistration(creds).enqueue(object: Callback<RegistrationReturnedAPI>{
+        retrofitInstance.userRegistration(creds)
+            .enqueue(object : Callback<RegistrationReturnedAPI> {
 
-            override fun onFailure(call: Call<RegistrationReturnedAPI>, t: Throwable) {
-                registrationSuccessful.value = false
-            }
+                override fun onFailure(call: Call<RegistrationReturnedAPI>, t: Throwable) {
+                    registrationSuccessful.value = false
+                }
 
-            override fun onResponse(
-                call: Call<RegistrationReturnedAPI>,
-                response: Response<RegistrationReturnedAPI>
-            ) {
-                registrationSuccessful.value = true
-            }
-        })
+                override fun onResponse(
+                    call: Call<RegistrationReturnedAPI>,
+                    response: Response<RegistrationReturnedAPI>
+                ) {
+                    registrationSuccessful.value = true
+                }
+            })
         return registrationSuccessful
     }
 
@@ -43,7 +43,7 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
 
         val loginSuccessful = MutableLiveData<Boolean>()
 
-        retrofitInstance.userLogin(creds).enqueue(object: Callback<LoginReturnedAPI> {
+        retrofitInstance.userLogin(creds).enqueue(object : Callback<LoginReturnedAPI> {
             override fun onFailure(call: Call<LoginReturnedAPI>, t: Throwable) {
                 loginSuccessful.value = false
             }
@@ -138,7 +138,6 @@ class DatabaseRepo(val contxt: Context) : DatabaseRepoInterface {
     override fun deleteChildLoginCredential(childCreds: ChildLoginCredential) {
         DeleteChildLoginCredentialAsyncTask(database.databaseDao()).execute(childCreds)
     }
-
 
 
     private val database by lazy {

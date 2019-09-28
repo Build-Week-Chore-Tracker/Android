@@ -9,14 +9,10 @@ import com.lambdaschool.choretracker.R
 import com.lambdaschool.choretracker.activity.ParentMainActivity.Companion.CHILD_REQUEST_KEY
 import com.lambdaschool.choretracker.adapter.ParentChildDetailChoreListAdapter
 import com.lambdaschool.choretracker.model.Child
-import com.lambdaschool.choretracker.model.ChildList
-import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.model.ChoreList
 import com.lambdaschool.choretracker.util.Prefs
-import com.lambdaschool.choretracker.util.repo
 import com.lambdaschool.choretracker.viewmodel.ParentChildDetailActivityViewModel
 import kotlinx.android.synthetic.main.activity_parent_child_detail.*
-import kotlinx.android.synthetic.main.list_item_parent_child_detail_chore.*
 
 class ParentChildDetailActivity : AppCompatActivity() {
 

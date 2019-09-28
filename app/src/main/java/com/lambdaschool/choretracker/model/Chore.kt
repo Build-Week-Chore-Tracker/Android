@@ -3,7 +3,6 @@ package com.lambdaschool.choretracker.model
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.synthetic.main.fragment_trade_child.*
 import java.io.Serializable
 
 object ChoreList {
@@ -32,8 +31,8 @@ object StandardChoreList {
     )
 }
 
-@Entity (tableName = "chore_table")
-class Chore (
+@Entity(tableName = "chore_table")
+class Chore(
     var title: String,
     var description: String,
     var pointValue: Int,
@@ -45,4 +44,4 @@ class Chore (
     @PrimaryKey(autoGenerate = true) @NonNull
     val chore_id: Int = 0
 
-    ) : Serializable
+) : Serializable

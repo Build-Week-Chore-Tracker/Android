@@ -46,21 +46,22 @@ class ParentChoresFragment : Fragment() {
         prefs = Prefs(context!!)
 
         var userId = -1
-
         prefs?.getLoginCredentials()?.let {
             userId = it.user
         }
 
         fab_add_chore.setOnClickListener {
-            listener?.onParentChoresFragmentInteractionListener(Chore(
-                ParentMainActivity.ADD_CHORE_KEY,
-                "",
-                0,
-                false,
-                "",
-                0,
-                0
-            ))
+            listener?.onParentChoresFragmentInteractionListener(
+                Chore(
+                    ParentMainActivity.ADD_CHORE_KEY,
+                    "",
+                    0,
+                    false,
+                    "",
+                    0,
+                    0
+                )
+            )
         }
 
         parentChoresViewModel.getAllChoresForParentId(userId).observe(this, Observer {
@@ -118,7 +119,8 @@ class ParentChoresFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        viewAdapterParent = ParentChoreRecyclerViewAdapter(ChoreList.choreList, listener, parentChoresViewModel)
+        viewAdapterParent =
+            ParentChoreRecyclerViewAdapter(ChoreList.choreList, listener, parentChoresViewModel)
         recyclerView.adapter = viewAdapterParent
     }
 

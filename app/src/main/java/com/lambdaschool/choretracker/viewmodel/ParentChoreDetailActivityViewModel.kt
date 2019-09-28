@@ -7,17 +7,20 @@ import com.lambdaschool.choretracker.model.ChildLoginCredential
 import com.lambdaschool.choretracker.model.Chore
 import com.lambdaschool.choretracker.util.repo
 
-class ParentChoreDetailActivityViewModel: ViewModel() {
+class ParentChoreDetailActivityViewModel : ViewModel() {
 
     fun getAllChildForParentId(parentId: Int): LiveData<List<Child>> =
         repo.getAllChildForParentId(parentId)
 
-    fun createChild(child: Child) = repo.createChild(child)
+    fun createChild(child: Child) =
+        repo.createChild(child)
 
-    fun updateChild(child: Child) = repo.updateChild(child)
+    fun updateChild(child: Child) =
+        repo.updateChild(child)
 
     fun createChildLoginCredential(childCreds: ChildLoginCredential) =
         repo.createChildLoginCredential(childCreds)
 
-    fun updateChore(chore: Chore) = repo.updateChore(chore)
+    fun updateChore(chore: Chore) =
+        repo.updateChore(chore)
 }
